@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'dart:html';
 
+//spotify implementaion
 class SpotifySection extends StatelessWidget {
   /// Embed-URL (Track, Album oder Playlist)
   final String embedUrl;
