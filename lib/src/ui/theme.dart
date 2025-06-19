@@ -5,12 +5,12 @@ import 'app_colors.dart';
 class AppTheme {
   static ThemeData get dark => ThemeData(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: AppColors.background,
+    // surface statt background
+    scaffoldBackgroundColor: AppColors.surface,
     primaryColor: AppColors.accent,
-    colorScheme: ColorScheme.dark(
+    colorScheme: const ColorScheme.dark().copyWith(
       primary: AppColors.accent,
       secondary: AppColors.text,
-      background: AppColors.background,
       surface: AppColors.surface,
     ),
     // Standard-Text: Roboto, Farbe überall weiß
@@ -35,11 +35,10 @@ class AppTheme {
         fontWeight: FontWeight.w600,
         color: AppColors.text,
       ),
-      // z. B. für Untertitel/Faded
       labelMedium: const TextStyle(color: AppColors.fadedText),
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.surface,
       elevation: 0,
       centerTitle: true,
       titleTextStyle: TextStyle(

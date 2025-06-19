@@ -10,21 +10,22 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
+  # UI & Routing
   go_router: ^15.2.0
   flutter_riverpod: ^2.6.1
+
+  # Icons & SVG
+  cupertino_icons: ^1.0.8
   flutter_svg: ^2.2.0
   web: ^1.1.1
-  js_interop: ^0.0.1
 
-  # Für Roboto via Google Fonts
+  # Google Fonts (Rob​oto)
   google_fonts: ^5.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-
 
 flutter:
   uses-material-design: true
@@ -36,5 +37,4 @@ flutter:
   fonts:
     - family: Airstream
       fonts:
-        # hier die Datei in assets/fonts/ airstream.ttf
         - asset: assets/fonts/AIRSTREA.ttf

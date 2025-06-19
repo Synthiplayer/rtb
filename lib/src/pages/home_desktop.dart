@@ -1,7 +1,6 @@
-// lib/src/pages/home/home_desktop.dart
 import 'package:flutter/material.dart';
 
-/// Desktop-Layout ohne Poster-Section, nur Hero-Bereich
+/// Desktop-Layout ohne Poster-Section, nur Hero-Bereich.
 class HomePageDesktop extends StatelessWidget {
   const HomePageDesktop({super.key});
 
@@ -16,33 +15,32 @@ class HomePageDesktop extends StatelessWidget {
             height: 350,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/hero.jpeg'),
+                image: const AssetImage('assets/images/hero.jpeg'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.6),
+                  // deprecated-Fix ↓
+                  Colors.black.withValues(
+                    alpha: 153, // 0.6 * 255
+                  ),
                   BlendMode.darken,
                 ),
               ),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 'Ragtag Birds',
                 textAlign: TextAlign.center,
-                style:
-                    const TextStyle(
-                      fontFamily: 'Airstream',
-                      fontSize: 96,
-                      fontWeight: FontWeight.bold,
-                    ).copyWith(
-                      color: Colors.white, // statt colorScheme.secondary
-                    ),
+                style: TextStyle(
+                  fontFamily: 'Airstream',
+                  fontSize: 96,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-
           const SizedBox(height: 32),
-
-          // ... weitere Sections können hier folgen
+          // … weitere Sections
         ],
       ),
     );

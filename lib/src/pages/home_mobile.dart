@@ -57,11 +57,10 @@ class HomePageMobile extends StatelessWidget {
           const SizedBox(height: 32),
 
           const SpotifySection(
-  embedUrl: 'https://open.spotify.com/embed/playlist/DEINE_PLAYLIST_ID',
-),
-
+            spotifyUrl:
+                'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
+          ),
         ],
-        
       ),
     );
   }
