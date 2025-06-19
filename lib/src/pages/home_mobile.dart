@@ -1,6 +1,7 @@
 // lib/src/pages/home/home_mobile.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rtb/src/components/spotify_section.dart';
 
 class HomePageMobile extends StatelessWidget {
   const HomePageMobile({super.key});
@@ -54,7 +55,13 @@ class HomePageMobile extends StatelessWidget {
           ),
 
           const SizedBox(height: 32),
+
+          const SpotifySection(
+  embedUrl: 'https://open.spotify.com/embed/playlist/DEINE_PLAYLIST_ID',
+),
+
         ],
+        
       ),
     );
   }
