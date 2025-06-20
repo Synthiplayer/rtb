@@ -10,6 +10,7 @@
 ///     ),
 ///     emailUrl: Uri(scheme: 'mailto', path: 'tina@ragtagbirds.de'),
 ///   );
+library;
 
 class BandMember {
   /// Anzeigename, z. B. "Tina" oder "Max".

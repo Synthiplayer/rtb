@@ -36,7 +36,7 @@ class _BandSectionState extends State<BandSection> {
     final theme = Theme.of(context);
 
     // Kartenzeile als Widget-Funktion, damit wir sie zweimal verwenden können
-    Widget _cardsRow() => Row(
+    Widget cardsRow() => Row(
       mainAxisSize: MainAxisSize.min, // nur so breit wie nötig
       children: [
         for (final m in bandMembers) ...[
@@ -75,7 +75,7 @@ class _BandSectionState extends State<BandSection> {
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: _pad),
-                    child: _cardsRow(),
+                    child: cardsRow(),
                   ),
                 );
               }
@@ -94,7 +94,7 @@ class _BandSectionState extends State<BandSection> {
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: _pad),
-                  child: _cardsRow(),
+                  child: cardsRow(),
                 ),
               );
             },
