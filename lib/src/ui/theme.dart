@@ -1,3 +1,5 @@
+// lib/src/ui/theme.dart
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
@@ -5,7 +7,6 @@ import 'app_colors.dart';
 class AppTheme {
   static ThemeData get dark => ThemeData(
     brightness: Brightness.dark,
-    // surface statt background
     scaffoldBackgroundColor: AppColors.surface,
     primaryColor: AppColors.accent,
     colorScheme: const ColorScheme.dark().copyWith(
@@ -13,16 +14,19 @@ class AppTheme {
       secondary: AppColors.text,
       surface: AppColors.surface,
     ),
-    // Standard-Text: Roboto, Farbe überall weiß
     textTheme: GoogleFonts.robotoTextTheme().copyWith(
-      bodyMedium: const TextStyle(color: AppColors.text),
+      // Neue, helle Überschrift für Titel
+      titleLarge: const TextStyle(
+        color: AppColors.text, // weiß
+        fontSize: 22, // oder deine Wunschgröße
+        fontWeight: FontWeight.bold, // optional
+      ),
       titleMedium: const TextStyle(
-        // ← NEU
         color: AppColors.text,
         fontSize: 18,
         fontWeight: FontWeight.w600,
       ),
-      // Überschriften: Airstream
+      bodyMedium: const TextStyle(color: AppColors.text),
       headlineLarge: const TextStyle(
         fontFamily: 'Airstream',
         fontSize: 48,

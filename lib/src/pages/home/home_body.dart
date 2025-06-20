@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '../../components/hero_header.dart';
 import '../../components/spotify_section.dart';
-import '../wdgets/band_section.dart';
+import '../widgets/band_section.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
