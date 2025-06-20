@@ -24,9 +24,9 @@ class HeroHeader extends StatelessWidget {
         ),
       ),
       child: Text(
-        'Ragtag Birds',
+        'Welcome',
         style: TextStyle(
-          fontFamily: 'Airstream',
+          fontFamily: 'Roboto',
           fontSize: isDesktop ? 96 : 42,
           fontWeight: FontWeight.bold,
           color: Colors.white,
