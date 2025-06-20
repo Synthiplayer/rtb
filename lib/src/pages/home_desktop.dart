@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rtb/src/pages/wdgets/band_section.dart';
+
+import '../components/spotify_section.dart';
 
 /// Desktop-Layout ohne Poster-Section, nur Hero-Bereich.
 class HomePageDesktop extends StatelessWidget {
@@ -39,6 +42,13 @@ class HomePageDesktop extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 32),
+
+          const SpotifySection(
+            spotifyUrl:
+                'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
+          ),
+          const BandSection(),
           const SizedBox(height: 32),
           // … weitere Sections
         ],

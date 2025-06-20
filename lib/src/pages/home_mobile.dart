@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rtb/src/components/spotify_section.dart';
+import 'package:rtb/src/pages/wdgets/band_section.dart';
 
 class HomePageMobile extends StatelessWidget {
   const HomePageMobile({super.key});
@@ -60,6 +61,8 @@ class HomePageMobile extends StatelessWidget {
             spotifyUrl:
                 'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
           ),
+          const BandSection(),
+          const SizedBox(height: 32),
         ],
       ),
     );
