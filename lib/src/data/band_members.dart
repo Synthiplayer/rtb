@@ -77,7 +77,7 @@ final bandMembers = <BandMember>[
   ),
   BandMember(
     name: 'Stefan',
-    role: 'Stagepiano',
+    role: 'Stage Piano',
     imageAsset: 'assets/images/members/stefan.jpg',
     instagramUrl: Uri(
       scheme: 'https',

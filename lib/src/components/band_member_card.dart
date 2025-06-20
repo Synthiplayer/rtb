@@ -40,7 +40,9 @@ class BandMemberCard extends StatelessWidget {
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            Colors.black.withOpacity(0.35),
+                            Colors.black.withAlpha(
+                              89,
+                            ), // statt withOpacity(0.35)
                           ],
                         ),
                       ),
