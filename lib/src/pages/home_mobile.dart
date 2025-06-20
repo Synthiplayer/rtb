@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:rtb/src/components/spotify_section.dart';
 import 'package:rtb/src/pages/wdgets/band_section.dart';
 
+import '../components/hero_header.dart';
+
 class HomePageMobile extends StatelessWidget {
   const HomePageMobile({super.key});
 
@@ -27,23 +29,8 @@ class HomePageMobile extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          // Hero-Bild
-          Image.asset('assets/images/hero.jpeg', fit: BoxFit.cover),
-
-          // Airstream-Logo-Überschrift
-          const Padding(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Ragtag Birds',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Airstream', // hier eure Airstream-Font
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          HeroHeader(),
+          const SizedBox(height: 32),
 
           // Untertitel im Roboto-Font
           const Padding(
@@ -61,6 +48,7 @@ class HomePageMobile extends StatelessWidget {
             spotifyUrl:
                 'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
           ),
+          const SizedBox(height: 32),
           const BandSection(),
           const SizedBox(height: 32),
         ],

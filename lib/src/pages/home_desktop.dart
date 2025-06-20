@@ -1,57 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:rtb/src/pages/wdgets/band_section.dart';
-
+import '../components/hero_header.dart';
 import '../components/spotify_section.dart';
 
-/// Desktop-Layout ohne Poster-Section, nur Hero-Bereich.
+/// Desktop-Layout mit Scroll-Support.
 class HomePageDesktop extends StatelessWidget {
   const HomePageDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          // FULLSCREEN HERO
-          Container(
-            width: double.infinity,
-            height: 350,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: const AssetImage('assets/images/hero.jpeg'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  // deprecated-Fix ↓
-                  Colors.black.withValues(
-                    alpha: 153, // 0.6 * 255
-                  ),
-                  BlendMode.darken,
-                ),
-              ),
-            ),
-            child: const Center(
-              child: Text(
-                'Ragtag Birds',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Airstream',
-                  fontSize: 96,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 32),
+      body: SingleChildScrollView(
+        // ← neu
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            HeroHeader(),
+            const SizedBox(height: 32),
 
-          const SpotifySection(
-            spotifyUrl:
-                'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
-          ),
-          const BandSection(),
-          const SizedBox(height: 32),
-          // … weitere Sections
-        ],
+            const SpotifySection(
+              spotifyUrl:
+                  'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
+            ),
+            const SizedBox(height: 32),
+
+            const BandSection(),
+            const SizedBox(height: 32),
+
+            // … weitere Sections
+          ],
+        ),
       ),
     );
   }
