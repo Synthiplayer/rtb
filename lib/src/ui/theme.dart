@@ -16,6 +16,12 @@ class AppTheme {
     // Standard-Text: Roboto, Farbe überall weiß
     textTheme: GoogleFonts.robotoTextTheme().copyWith(
       bodyMedium: const TextStyle(color: AppColors.text),
+      titleMedium: const TextStyle(
+        // ← NEU
+        color: AppColors.text,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+      ),
       // Überschriften: Airstream
       headlineLarge: const TextStyle(
         fontFamily: 'Airstream',

@@ -21,6 +21,7 @@ dependencies:
   url_launcher: ^6.3.1
   font_awesome_flutter: ^10.8.0
 
+
   # Google Fonts (Rob​oto)
   google_fonts: ^5.0.0
 
