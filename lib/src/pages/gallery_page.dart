@@ -2,8 +2,10 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 class GalleryPage extends StatefulWidget {
   const GalleryPage({super.key});
@@ -28,7 +30,7 @@ class _GalleryPageState extends State<GalleryPage> {
     try {
       final res = await http.get(Uri.parse(url));
       if (res.statusCode == 200) {
-        final List<dynamic> data = json.decode(res.body);
+        final data = json.decode(res.body) as List<dynamic>;
         setState(() {
           _images = data.cast<String>();
           _loading = false;
@@ -44,6 +46,14 @@ class _GalleryPageState extends State<GalleryPage> {
     }
   }
 
+  void _openViewer(int index) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => GalleryViewer(images: _images, initialIndex: index),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_loading) {
@@ -53,26 +63,141 @@ class _GalleryPageState extends State<GalleryPage> {
       return Scaffold(body: Center(child: Text(_error!)));
     }
     return Scaffold(
-      appBar: AppBar(title: const Text('Gallery')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.home),
+          onPressed: () => context.go('/'),
+        ),
+        title: const Text('Gallery'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: GridView.builder(
+          itemCount: _images.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
           ),
-          itemCount: _images.length,
-          itemBuilder: (ctx, i) {
-            return CachedNetworkImage(
+          itemBuilder: (ctx, i) => GestureDetector(
+            onTap: () => _openViewer(i),
+            child: CachedNetworkImage(
               imageUrl: _images[i],
               placeholder: (_, __) =>
                   const Center(child: CircularProgressIndicator()),
               errorWidget: (_, __, ___) => const Icon(Icons.broken_image),
               fit: BoxFit.cover,
-            );
-          },
+            ),
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class GalleryViewer extends StatefulWidget {
+  final List<String> images;
+  final int initialIndex;
+
+  const GalleryViewer({required this.images, required this.initialIndex});
+
+  @override
+  State<GalleryViewer> createState() => _GalleryViewerState();
+}
+
+class _GalleryViewerState extends State<GalleryViewer> {
+  late final PageController _pageController;
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex;
+    _pageController = PageController(initialPage: _currentIndex);
+  }
+
+  void _closeViewer() {
+    Navigator.of(context).pop();
+  }
+
+  void _previous() {
+    if (_currentIndex > 0) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _next() {
+    if (_currentIndex < widget.images.length - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width > 600;
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        // Hier das X statt Home:
+        leading: IconButton(
+          icon: const Icon(Icons.close, color: Colors.white),
+          onPressed: _closeViewer,
+        ),
+        title: Text(
+          '${_currentIndex + 1}/${widget.images.length}',
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+      body: Stack(
+        children: [
+          PhotoViewGallery.builder(
+            pageController: _pageController,
+            itemCount: widget.images.length,
+            builder: (ctx, index) => PhotoViewGalleryPageOptions(
+              imageProvider: NetworkImage(widget.images[index]),
+            ),
+            onPageChanged: (index) {
+              setState(() => _currentIndex = index);
+            },
+            backgroundDecoration: const BoxDecoration(color: Colors.black),
+          ),
+          if (isDesktop) ...[
+            Positioned(
+              left: 16,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                  onPressed: _previous,
+                ),
+              ),
+            ),
+            Positioned(
+              right: 16,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  ),
+                  onPressed: _next,
+                ),
+              ),
+            ),
+          ],
+        ],
       ),
     );
   }

@@ -1,38 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <base href="/"/>
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+  <title>Ragtag Birds</title>
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  <!-- PWA-Manifest -->
+  <link rel="manifest" href="/manifest.json"/>
+  <!-- Theme-Farbe für mobile Browser & Splash Screen -->
+  <meta name="theme-color" content="#1ED760"/>
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+  <!-- Favicon (ICO) -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="rtb webapp">
+  <!-- PNG-Icons für PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/app-icons/Icon-192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="/app-icons/Icon-512.png"/>
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="rtb">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <!-- Maskable Icons -->
+  <link rel="mask-icon" type="image/png" sizes="192x192" href="/app-icons/Icon-maskable-192.png" color="#1ED760"/>
+  <link rel="mask-icon" type="image/png" sizes="512x512" href="/app-icons/Icon-maskable-512.png" color="#1ED760"/>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>rtb</title>
-  <link rel="manifest" href="manifest.json">
+  <!-- Flutter Web Loader -->
+  <script src="/flutter.js" defer></script>
+  <script src="/flutter_bootstrap.js" defer></script>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<!-- Content wird durch Flutter geladen -->
+<noscript>Bitte aktiviere JavaScript, um diese Anwendung zu verwenden.</noscript>
 </body>
 </html>
