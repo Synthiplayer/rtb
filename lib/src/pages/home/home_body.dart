@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import '../../components/hero_header.dart';
-import '../../components/spotify_section.dart';
 import '../widgets/band_section.dart';
+import '../../components/spotify_section.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -25,13 +25,19 @@ class HomeBody extends StatelessWidget {
             ),
           ),
           SizedBox(height: 32),
+
+          // Erst die Band-Section (statt Spotify zuerst)
+          BandSection(),
+          SizedBox(height: 32),
+
+          // Dann Spotify
           SpotifySection(
             spotifyUrl:
                 'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
           ),
           SizedBox(height: 32),
-          BandSection(),
-          SizedBox(height: 32),
+
+          // (Hier könntest du später TourSection hinzufügen)
         ],
       ),
     );
