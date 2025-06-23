@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:js_util'; // promiseToFuture
 import '../ui/app_colors.dart';
-import '../ui/theme.dart';
 
 class InstallBanner extends StatefulWidget {
   const InstallBanner({super.key});

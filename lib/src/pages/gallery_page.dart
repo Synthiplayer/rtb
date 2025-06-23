@@ -99,7 +99,7 @@ class GalleryViewer extends StatefulWidget {
   final List<String> images;
   final int initialIndex;
 
-  const GalleryViewer({required this.images, required this.initialIndex});
+  const GalleryViewer({super.key, required this.images, required this.initialIndex});
 
   @override
   State<GalleryViewer> createState() => _GalleryViewerState();

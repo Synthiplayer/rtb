@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import '../../components/responsive_scaffold.dart';
-import '../../widgets/install_banner.dart';
 import 'home_body.dart';
 
 /// Entscheidet automatisch zwischen Mobile (Drawer) und Desktop (AppBar-Buttons).
