@@ -1,0 +1,55 @@
+[
+  {
+    "event": "Ragtag Birds",
+    "subtitle": "Fantastischer Rock'n'Roll aus den 50er und 60er Jahren.",
+    "date": "2025-11-08",
+    "time": "20:00",
+    "city": "Osterbruch",
+    "venue": "Osterbrucher Mühle",
+    "advance": "13,00 €",
+    "before": "15,00 €",
+    "url": "https://tickets.example.com/ragtag-birds",
+    "eventlink": "https://www.kultur-pur-osterbruch.de/jahres-%C3%BCbersicht-2025/",
+    "organizer": "KulturPur Osterbruch e. V.",
+    "organizer_street": "Dorfstraße 13",
+    "organizer_city": "21762 Osterbruch"
+  },
+  {
+    "event": "Eintritt frei mit Link & Subtitle",
+    "subtitle": "Das Sommerpicknick für alle Altersgruppen.",
+    "date": "2025-06-21",
+    "time": "17:30",
+    "city": "Stade",
+    "venue": "Schlosspark",
+    "eventlink": "https://stadt-stade.de/events/picknick"
+  },
+  {
+    "event": "Abendkasse only",
+    "date": "2025-09-14",
+    "city": "Buxtehude",
+    "venue": "Kulturzentrum",
+    "before": "12,00 €"
+  },
+  {
+    "event": "VVK only mit Tickets",
+    "date": "2025-10-11",
+    "city": "Cuxhaven",
+    "venue": "Musikschuppen",
+    "advance": "10,00 €",
+    "url": "https://tickets.example.com/cux"
+  },
+  {
+    "event": "Nur Tickets, kein Preis",
+    "date": "2025-12-24",
+    "time": "23:00",
+    "city": "Hamburg",
+    "venue": "Jazzclub",
+    "url": "https://tickets.example.com/jazz"
+  },
+  {
+    "event": "Open Air Special",
+    "date": "2025-08-02",
+    "city": "München",
+    "venue": "Rockhalle"
+  }
+]

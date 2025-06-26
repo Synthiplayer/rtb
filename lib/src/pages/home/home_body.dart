@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../components/hero_header.dart';
 import '../widgets/band_section.dart';
 import '../../components/spotify_section.dart';
+import '../widgets/tour_section.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -16,14 +17,8 @@ class HomeBody extends StatelessWidget {
         children: const [
           HeroHeader(),
           SizedBox(height: 16),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              'Unsere neue Webseite entsteht gerade. Schaut bald wieder vorbei für News, Tourdaten & mehr!',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
+          // ⇩ TourSection direkt unter dem Header ⇩
+          TourSection(),
           SizedBox(height: 32),
 
           // Erst die Band-Section (statt Spotify zuerst)
