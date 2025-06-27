@@ -15,6 +15,21 @@
     "organizer_city": "21762 Osterbruch"
   },
   {
+    "event": "Hans Wurst event",
+    "subtitle": "Fantastischer Rock'n'Roll aus den 50er und 60er Jahren.",
+    "date": "2025-11-08",
+    "time": "20:00",
+    "city": "Osterbruch",
+    "venue": "Osterbrucher Mühle",
+    "advance": "13,00 €",
+    "before": "15,00 €",
+    "url": "https://tickets.example.com/ragtag-birds",
+    "eventlink": "https://www.kultur-pur-osterbruch.de/jahres-%C3%BCbersicht-2025/",
+    "organizer": "KulturPur Osterbruch e. V.",
+    "organizer_street": "Dorfstraße 13",
+    "organizer_city": "21762 Osterbruch"
+  },
+  {
     "event": "Eintritt frei mit Link & Subtitle",
     "subtitle": "Das Sommerpicknick für alle Altersgruppen.",
     "date": "2025-06-21",

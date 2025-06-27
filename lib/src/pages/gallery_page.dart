@@ -7,6 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+import '../components/band_drawer.dart';
+import '../components/responsive_scaffold.dart';
+
 class GalleryPage extends StatefulWidget {
   const GalleryPage({super.key});
 
@@ -57,19 +60,19 @@ class _GalleryPageState extends State<GalleryPage> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const ResponsiveScaffold(
+        body: Center(child: CircularProgressIndicator()),
+        drawer: BandDrawer(),
+      );
     }
     if (_error != null) {
-      return Scaffold(body: Center(child: Text(_error!)));
+      return ResponsiveScaffold(
+        body: Center(child: Text('$_error')),
+        drawer: const BandDrawer(),
+      );
     }
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.home),
-          onPressed: () => context.go('/'),
-        ),
-        title: const Text('Gallery'),
-      ),
+    return ResponsiveScaffold(
+      drawer: const BandDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: GridView.builder(
@@ -95,11 +98,16 @@ class _GalleryPageState extends State<GalleryPage> {
   }
 }
 
+// Die GalleryViewer bleibt wie sie ist!
 class GalleryViewer extends StatefulWidget {
   final List<String> images;
   final int initialIndex;
 
-  const GalleryViewer({super.key, required this.images, required this.initialIndex});
+  const GalleryViewer({
+    super.key,
+    required this.images,
+    required this.initialIndex,
+  });
 
   @override
   State<GalleryViewer> createState() => _GalleryViewerState();
@@ -147,7 +155,6 @@ class _GalleryViewerState extends State<GalleryViewer> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // Hier das X statt Home:
         leading: IconButton(
           icon: const Icon(Icons.close, color: Colors.white),
           onPressed: _closeViewer,

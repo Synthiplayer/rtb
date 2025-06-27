@@ -54,10 +54,7 @@ class _BandSectionState extends State<BandSection> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: _pad, vertical: 8),
-          child: Text(
-            'Die 5 Ragtag Birds',
-            style: theme.textTheme.headlineSmall,
-          ),
+          child: Text('Die 5 Birds', style: theme.textTheme.headlineSmall),
         ),
 
         // ───────────────── Karten-Bereich ───────────────────────────
