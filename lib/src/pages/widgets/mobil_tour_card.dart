@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'event_share_button.dart';
-import 'event_share_pic.dart';
 import 'gig_share_button.dart';
 
 class MobilTourCard extends StatefulWidget {
