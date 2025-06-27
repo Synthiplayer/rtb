@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'event_share_button.dart';
+import 'event_share_pic.dart';
+import 'gig_share_button.dart';
+
 class MobilTourCard extends StatefulWidget {
   final Map<String, dynamic> show;
   const MobilTourCard({required this.show, super.key});
@@ -12,6 +16,18 @@ class MobilTourCard extends StatefulWidget {
 
 class _MobilTourCardState extends State<MobilTourCard> {
   bool _expanded = false;
+
+  String? _buildPriceInfo(String? vvk, String? ak) {
+    if ((vvk == null || vvk.isEmpty) && (ak == null || ak.isEmpty)) {
+      return "Eintritt frei";
+    }
+    if ((vvk != null && vvk.isNotEmpty) && (ak != null && ak.isNotEmpty)) {
+      return "VVK: $vvk / AK: $ak";
+    }
+    if (vvk != null && vvk.isNotEmpty) return "VVK: $vvk";
+    if (ak != null && ak.isNotEmpty) return "AK: $ak";
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -190,22 +206,36 @@ class _MobilTourCardState extends State<MobilTourCard> {
                   if (eventLink.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4),
-                      child: TextButton(
-                        onPressed: () async {
-                          final uri = Uri.parse(eventLink);
-                          if (await canLaunchUrl(uri)) await launchUrl(uri);
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          alignment: Alignment.centerLeft,
-                          textStyle: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed: () async {
+                              final uri = Uri.parse(eventLink);
+                              if (await canLaunchUrl(uri)) await launchUrl(uri);
+                            },
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              alignment: Alignment.centerLeft,
+                              textStyle: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            child: const Text('Eventlink'),
                           ),
-                        ),
-                        child: const Text('Eventlink'),
+                          const SizedBox(width: 16),
+                          // <- Hier einfach das ausgelagerte Widget als TextButton verwenden:
+                          EventShareButton(
+                            eventUrl: eventLink,
+                            shareText: 'Komm mit zum Konzert!',
+                            useTextButton:
+                                true, // diesen Parameter musst du ggf. ergänzen!
+                          ),
+                        ],
                       ),
                     ),
+
                   if ((organizer != null && organizer.isNotEmpty) ||
                       (organizerStreet != null && organizerStreet.isNotEmpty) ||
                       (organizerCity != null && organizerCity.isNotEmpty)) ...[
@@ -280,6 +310,21 @@ class _MobilTourCardState extends State<MobilTourCard> {
                 Expanded(flex: 1, child: Center(child: right)),
               ],
             ),
+            const SizedBox(height: 10),
+            // HIER kommt dein Share-Button rein – mittig:
+            Center(
+              child: GigShareButton(
+                eventTitle: event, // NICHT bandName! Das ist der Eventtitel
+                date:
+                    formattedDate +
+                    (formattedTime.isNotEmpty ? ' $formattedTime' : ''),
+                location: [city, venue].where((s) => s.isNotEmpty).join(', '),
+                priceInfo: _buildPriceInfo(advance, before),
+              ),
+            ),
+
+            // Optional noch etwas Abstand:
+            const SizedBox(height: 2),
             if (expandedBlock != null) expandedBlock,
           ],
         ),

@@ -24,6 +24,9 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   photo_view: ^0.15.0
   intl: ^0.20.2
+  path_provider: ^2.1.5
+  screenshot: ^3.0.0
+  share_plus: ^11.0.0
 
   # Google Fonts
   google_fonts: ^5.0.0
@@ -40,6 +43,7 @@ flutter:
   assets:
     - assets/images/logo.svg
     - assets/images/hero.jpeg
+    - assets/images/sharepic_bg.png
     - assets/images/members/
   fonts:
     - family: Airstream
