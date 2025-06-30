@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -86,9 +85,9 @@ class _GalleryPageState extends State<GalleryPage> {
             onTap: () => _openViewer(i),
             child: CachedNetworkImage(
               imageUrl: _images[i],
-              placeholder: (_, __) =>
+              placeholder: (_, _) =>
                   const Center(child: CircularProgressIndicator()),
-              errorWidget: (_, __, ___) => const Icon(Icons.broken_image),
+              errorWidget: (_, _, _) => const Icon(Icons.broken_image),
               fit: BoxFit.cover,
             ),
           ),

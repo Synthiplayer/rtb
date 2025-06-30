@@ -14,11 +14,25 @@ class _TourSectionState extends State<TourSection> {
   bool _loading = true;
   String? _error;
   List<Map<String, dynamic>> _shows = [];
+  bool _bgPrecached = false; // Verhindert mehrfaches Precache
 
   @override
   void initState() {
     super.initState();
     _loadTour();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Das hier ist sicher, weil context nun verfügbar ist!
+    if (!_bgPrecached) {
+      precacheImage(
+        const AssetImage('assets/images/sharepic_bg_v2.png'),
+        context,
+      );
+      _bgPrecached = true;
+    }
   }
 
   Future<void> _loadTour() async {

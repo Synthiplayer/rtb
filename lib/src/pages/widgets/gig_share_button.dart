@@ -1,12 +1,14 @@
+import 'package:js/js.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart'; // <-- FEHLTE!
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'event_share_pic.dart';
-import 'social_share_bar.dart';
 import '../../ui/app_colors.dart';
+
+// JS-Interop
+@JS('shareImageWeb')
+external void shareImageWeb(Object bytes, String filename, String text);
 
 class GigShareButton extends StatelessWidget {
   final String eventTitle;
@@ -22,118 +24,73 @@ class GigShareButton extends StatelessWidget {
     this.priceInfo,
   });
 
+  Future<void> _doShare(BuildContext context) async {
+    final screenshotController = ScreenshotController();
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+
+    final sharePicWidget = Positioned(
+      top: -10000, // wirklich weit außerhalb des sichtbaren Bereichs
+      left: 0,
+      child: Material(
+        color: Colors.transparent,
+        child: Center(
+          child: Screenshot(
+            controller: screenshotController,
+            child: EventSharePicWidget(
+              eventTitle: eventTitle,
+              date: date,
+              location: location,
+              priceInfo: priceInfo,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    final overlay = Overlay.of(context);
+    final overlayEntry = OverlayEntry(builder: (ctx) => sharePicWidget);
+    overlay.insert(overlayEntry);
+
+    // Wieder normales kurzes Delay
+    await Future.delayed(const Duration(milliseconds: 120));
+
+    final imageBytes = await screenshotController.capture();
+
+    overlayEntry.remove();
+    Navigator.of(context).pop();
+
+    if (imageBytes != null) {
+      shareImageWeb(imageBytes, 'sharepic.png', 'Ragtag Birds live!');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Bild konnte nicht erstellt werden.")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          builder: (ctx) => _GigShareSheetContent(
-            eventTitle: eventTitle,
-            date: date,
-            location: location,
-            priceInfo: priceInfo,
-          ),
-        );
-      },
+      onTap: () => _doShare(context),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.share, color: Colors.white, size: 28),
+          Icon(Icons.share, color: AppColors.accent, size: 28),
           const SizedBox(height: 2),
-          const Text(
-            "Gig teilen",
+          Text(
+            "Gigbild teilen",
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.accent,
               fontSize: 13,
               fontWeight: FontWeight.w500,
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _GigShareSheetContent extends StatefulWidget {
-  final String eventTitle;
-  final String date;
-  final String location;
-  final String? priceInfo;
-
-  const _GigShareSheetContent({
-    required this.eventTitle,
-    required this.date,
-    required this.location,
-    this.priceInfo,
-  });
-
-  @override
-  State<_GigShareSheetContent> createState() => _GigShareSheetContentState();
-}
-
-class _GigShareSheetContentState extends State<_GigShareSheetContent> {
-  final ScreenshotController _screenshotController = ScreenshotController();
-  String? savedImagePath;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _captureAndSave());
-  }
-
-  Future<void> _captureAndSave() async {
-    final image = await _screenshotController.capture();
-    if (image == null) return;
-    final dir = await getTemporaryDirectory();
-    final file = File('${dir.path}/sharepic.png');
-    await file.writeAsBytes(image);
-    setState(() => savedImagePath = file.path);
-  }
-
-  Future<void> _shareImage() async {
-    if (savedImagePath == null) return;
-    final xFile = XFile(savedImagePath!);
-    await Share.shareXFiles([xFile], text: "Ragtag Birds live!");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.background,
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Screenshot(
-                controller: _screenshotController,
-                child: EventSharePicWidget(
-                  eventTitle: widget.eventTitle,
-                  date: widget.date,
-                  location: widget.location,
-                  priceInfo: widget.priceInfo,
-                ),
-              ),
-              const SizedBox(height: 22),
-              SocialShareBar(
-                infoText: "Teile das Eventbild auf Social Media:",
-                onShareInstagram: _shareImage,
-                onShareTiktok: _shareImage,
-                onShareFacebook: _shareImage,
-                onShareWhatsapp: _shareImage,
-                onCopyLink: null,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

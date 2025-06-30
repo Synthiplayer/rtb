@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class EventSharePicWidget extends StatelessWidget {
   final String eventTitle;
@@ -18,67 +17,34 @@ class EventSharePicWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width * 0.85;
-    if (size > 380) size = 380; // max 380 z.B.
-    if (size < 220) size = 220; // min 220 z.B.
+    if (size > 380) size = 380;
+    if (size < 220) size = 220;
     return Container(
       width: size,
       height: size,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         image: const DecorationImage(
-          image: AssetImage('assets/images/sharepic_bg.png'),
+          image: AssetImage('assets/images/sharepic_bg_v2.png'),
           fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Color.fromARGB(210, 0, 0, 0),
-            BlendMode.darken,
-          ),
         ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // <-- Das ändert sich!
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            // Logo (SVG rund, scharf, skaliert)
-            Container(
-              margin: const EdgeInsets.only(bottom: 0),
-              width: 76,
-              height: 76,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.black45,
-                border: Border.all(color: Colors.white70, width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 6,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: ClipOval(
-                child: Container(
-                  color: Colors.black87, // Oder dein Kreis-Hintergrund
-                  padding: const EdgeInsets.all(6), // Abstand zum Rand
-                  child: SvgPicture.asset(
-                    'assets/images/logo.svg',
-                    width: 44, // Größe des SVG INNEN
-                    height: 44,
-                    fit: BoxFit
-                        .contain, // <- 'contain' statt 'cover' ist besser für SVG!
-                  ),
-                ),
-              ),
-            ),
+            const Spacer(), // <-- NEU! Rutscht alles nach unten
             // Bandname
             const Text(
               'Ragtag Birds',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: 'Airstream', // <<-- HIER!
+                fontFamily: 'Airstream',
                 color: Colors.white,
-                fontSize: 52, // gern größer machen!
-                fontWeight: FontWeight.normal, // Airstream ist ohnehin bold
+                fontSize: 52,
+                fontWeight: FontWeight.normal,
                 letterSpacing: 1.1,
                 shadows: [
                   Shadow(
@@ -135,7 +101,7 @@ class EventSharePicWidget extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const Spacer(),
+            const Spacer(), // Unten evtl. weniger (oder rausnehmen)
             // Eintritt/Preis-Info
             if (priceInfo != null && priceInfo!.isNotEmpty)
               Text(

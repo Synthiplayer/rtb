@@ -7,22 +7,33 @@
 
   <title>Ragtag Birds</title>
 
-  <!-- PWA-Manifest -->
+  <!-- Manifest für PWA -->
   <link rel="manifest" href="/manifest.json"/>
-  <!-- Theme-Farbe für mobile Browser & Splash Screen -->
+
+  <!-- Theme-Farbe für Browser & Android-Splash -->
   <meta name="theme-color" content="#1ED760"/>
 
-  <!-- Favicon (ICO) -->
+  <!-- Favicon für Desktop-Browser -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="icon" type="image/png" href="/favicon.png"/>
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
 
-  <!-- PNG-Icons für PWA -->
+  <!-- PWA-Icons für Android/Chrome -->
   <link rel="icon" type="image/png" sizes="192x192" href="/app-icons/Icon-192.png"/>
   <link rel="icon" type="image/png" sizes="512x512" href="/app-icons/Icon-512.png"/>
+  <!-- Maskable Icons für Android/Chrome -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/app-icons/Icon-maskable-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/app-icons/Icon-maskable-512.png" />
 
-  <!-- Maskable Icons -->
-  <link rel="mask-icon" type="image/png" sizes="192x192" href="/app-icons/Icon-maskable-192.png" color="#1ED760"/>
-  <link rel="mask-icon" type="image/png" sizes="512x512" href="/app-icons/Icon-maskable-512.png" color="#1ED760"/>
+  <!-- Apple Touch Icons für iOS Homescreen -->
+  <link rel="apple-touch-icon" sizes="120x120" href="/app-icons/Icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/app-icons/Icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/app-icons/Icon-192.png">
+
+  <!-- iOS Web App Einstellungen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Ragtag Birds">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <!-- Flutter Web Loader -->
   <script src="/flutter.js" defer></script>
@@ -31,5 +42,28 @@
 <body>
 <!-- Content wird durch Flutter geladen -->
 <noscript>Bitte aktiviere JavaScript, um diese Anwendung zu verwenden.</noscript>
+
+<!-- SHARE IMAGE WEB API (für Flutter Web Interop) -->
+<script>
+  window.shareImageWeb = async function(bytes, filename, text) {
+    const blob = new Blob([new Uint8Array(bytes)], { type: 'image/png' });
+    const file = new File([blob], filename, { type: blob.type });
+    const shareData = { files: [file], text };
+    if (navigator.canShare && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+      } catch (e) {
+        alert("Teilen wurde abgebrochen oder ist nicht verfügbar.");
+      }
+    } else {
+      // Fallback: Download
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      alert("Teilen wird von deinem Browser nicht unterstützt. Das Bild wurde stattdessen heruntergeladen.");
+    }
+  }
+</script>
 </body>
 </html>

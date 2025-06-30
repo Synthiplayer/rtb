@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'event_share_button.dart';
 import 'gig_share_button.dart';
 
 class MobilTourCard extends StatefulWidget {
@@ -45,14 +43,6 @@ class _MobilTourCardState extends State<MobilTourCard> {
     final organizerCity = (show['organizer_city'] as String?)?.trim();
     final subtitle = (show['subtitle'] as String?)?.trim();
 
-    // Zusatzinfos (Subtitle, Eventlink, Adresse/Veranstalter)
-    final hasExtraInfos =
-        (subtitle != null && subtitle.isNotEmpty) ||
-        eventLink.isNotEmpty ||
-        (organizer != null && organizer.isNotEmpty) ||
-        (organizerStreet != null && organizerStreet.isNotEmpty) ||
-        (organizerCity != null && organizerCity.isNotEmpty);
-
     String formattedDate = dateStr;
     if (dateStr.isNotEmpty) {
       try {
@@ -63,32 +53,16 @@ class _MobilTourCardState extends State<MobilTourCard> {
     }
     final formattedTime = timeStr.isNotEmpty ? '$timeStr Uhr' : '';
 
-    // Preise-Infos (VVK/AK) – für Expanded-Block
     final priceLines = <String>[];
     if (advance?.isNotEmpty ?? false) priceLines.add('VVK: ${advance!}');
     if (before?.isNotEmpty ?? false) priceLines.add('AK: ${before!}');
 
-    // --- LOGIK: Nur Abendkasse ohne Zusatzinfos ---
-    final isAbendkasseOnly =
-        (advance == null || advance.isEmpty) &&
-        (before != null && before.isNotEmpty) &&
-        ticketUrl.isEmpty &&
-        !hasExtraInfos;
-
-    // --- Rechte Seite (Button, Preise, Eintritt frei, Pfeil) ---
-    Widget right;
-    if (ticketUrl.isNotEmpty) {
-      // Tickets-Button – Pfeil nur falls Preise oder Zusatzinfos
-      final canExpand =
-          (hasExtraInfos ||
-          (advance != null && advance.isNotEmpty) ||
-          (before != null &&
-              (advance != null && advance.isNotEmpty) &&
-              advance != before));
-      right = Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+    // Immer aufklappbar, also immer Pfeil anzeigen
+    Widget right = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        if (ticketUrl.isNotEmpty)
           TextButton(
             onPressed: () async {
               final uri = Uri.parse(ticketUrl);
@@ -102,65 +76,16 @@ class _MobilTourCardState extends State<MobilTourCard> {
             ),
             child: const Text('Tickets'),
           ),
-          if (canExpand)
-            IconButton(
-              icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
-              tooltip: _expanded ? 'Weniger Details' : 'Mehr Details',
-              onPressed: () => setState(() => _expanded = !_expanded),
-              padding: EdgeInsets.zero,
-            ),
-        ],
-      );
-    } else if (isAbendkasseOnly) {
-      // Nur Abendkasse, keine weiteren Infos, kein Pfeil!
-      right = Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'Eintritt:',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          Text('AK: $before', style: Theme.of(context).textTheme.bodyMedium),
-        ],
-      );
-    } else if ((advance == null || advance.isEmpty) &&
-        (before == null || before.isEmpty) &&
-        !hasExtraInfos) {
-      // Eintritt frei, keine weiteren Infos, kein Pfeil
-      right = const Text(
-        'Eintritt frei',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-      );
-    } else {
-      // Eintritt frei ODER VVK/AK/weitere Details
-      final canExpand =
-          hasExtraInfos ||
-          (advance != null && advance.isNotEmpty) ||
-          (before != null && advance != null && advance.isNotEmpty);
-      right = Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if ((advance == null || advance.isEmpty) &&
-              (before == null || before.isEmpty))
-            const Text(
-              'Eintritt frei',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          if (canExpand)
-            IconButton(
-              icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
-              tooltip: _expanded ? 'Weniger Details' : 'Mehr Details',
-              onPressed: () => setState(() => _expanded = !_expanded),
-              padding: EdgeInsets.zero,
-            ),
-        ],
-      );
-    }
+        IconButton(
+          icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
+          tooltip: _expanded ? 'Weniger Details' : 'Mehr Details',
+          onPressed: () => setState(() => _expanded = !_expanded),
+          padding: EdgeInsets.zero,
+        ),
+      ],
+    );
 
-    // Linke Seite: Event, Datum/Uhrzeit, Ort
+    // Unaufgeklappte linke Seite: Event, Datum/Uhrzeit, Ort
     final leftCol = <Widget>[
       Text(event, style: Theme.of(context).textTheme.titleMedium),
       Row(
@@ -175,10 +100,9 @@ class _MobilTourCardState extends State<MobilTourCard> {
       ),
       if (city.isNotEmpty || venue.isNotEmpty)
         Text('$city, $venue', style: Theme.of(context).textTheme.bodyMedium),
-      // KEIN Subtitle, KEIN Pfeil hier!
     ];
 
-    // Aufgeklappter Bereich (Expanded)
+    // --- Expanded-Bereich ---
     Widget? expandedBlock;
     if (_expanded) {
       expandedBlock = Padding(
@@ -186,12 +110,29 @@ class _MobilTourCardState extends State<MobilTourCard> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Links: Subtitle, Eventlink, Veranstalter (mehrzeilig)
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // 1. Gig teilen (AppColors.accent)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: GigShareButton(
+                      eventTitle: event,
+                      date:
+                          formattedDate +
+                          (formattedTime.isNotEmpty ? ' $formattedTime' : ''),
+                      location: [
+                        city,
+                        venue,
+                      ].where((s) => s.isNotEmpty).join(', '),
+                      priceInfo: _buildPriceInfo(advance, before),
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+                  // 2. Subtitle
                   if (subtitle != null && subtitle.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6),
@@ -202,39 +143,25 @@ class _MobilTourCardState extends State<MobilTourCard> {
                         ),
                       ),
                     ),
+                  // 3. Eventlink (Textbutton)
                   if (eventLink.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextButton(
-                            onPressed: () async {
-                              final uri = Uri.parse(eventLink);
-                              if (await canLaunchUrl(uri)) await launchUrl(uri);
-                            },
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              alignment: Alignment.centerLeft,
-                              textStyle: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            child: const Text('Eventlink'),
-                          ),
-                          const SizedBox(width: 16),
-                          // <- Hier einfach das ausgelagerte Widget als TextButton verwenden:
-                          EventShareButton(
-                            eventUrl: eventLink,
-                            shareText: 'Komm mit zum Konzert!',
-                            useTextButton:
-                                true, // diesen Parameter musst du ggf. ergänzen!
-                          ),
-                        ],
+                      child: TextButton.icon(
+                        onPressed: () async {
+                          final uri = Uri.parse(eventLink);
+                          if (await canLaunchUrl(uri)) await launchUrl(uri);
+                        },
+                        icon: const Icon(Icons.link, size: 18),
+                        label: const Text('Weitere Infos zum Event'),
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          alignment: Alignment.centerLeft,
+                          foregroundColor: Colors.blue[700],
+                        ),
                       ),
                     ),
-
+                  // 4. Adresse/Veranstalter
                   if ((organizer != null && organizer.isNotEmpty) ||
                       (organizerStreet != null && organizerStreet.isNotEmpty) ||
                       (organizerCity != null && organizerCity.isNotEmpty)) ...[
@@ -263,7 +190,7 @@ class _MobilTourCardState extends State<MobilTourCard> {
                 ],
               ),
             ),
-            // Rechts: Preise (VVK, AK) rechtsbündig
+            // Rechte Seite: Preise rechtsbündig
             Expanded(
               flex: 1,
               child: priceLines.isNotEmpty
@@ -309,21 +236,7 @@ class _MobilTourCardState extends State<MobilTourCard> {
                 Expanded(flex: 1, child: Center(child: right)),
               ],
             ),
-            const SizedBox(height: 10),
-            // HIER kommt dein Share-Button rein – mittig:
-            Center(
-              child: GigShareButton(
-                eventTitle: event, // NICHT bandName! Das ist der Eventtitel
-                date:
-                    formattedDate +
-                    (formattedTime.isNotEmpty ? ' $formattedTime' : ''),
-                location: [city, venue].where((s) => s.isNotEmpty).join(', '),
-                priceInfo: _buildPriceInfo(advance, before),
-              ),
-            ),
-
-            // Optional noch etwas Abstand:
-            const SizedBox(height: 2),
+            if (_expanded) const SizedBox(height: 12),
             if (expandedBlock != null) expandedBlock,
           ],
         ),

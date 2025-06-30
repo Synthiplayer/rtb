@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../ui/app_colors.dart';
 
 class SocialShareBar extends StatelessWidget {
-  final Future<void> Function()? onShareInstagram;
-  final Future<void> Function()? onShareTiktok;
-  final Future<void> Function()? onShareFacebook;
-  final Future<void> Function()? onShareWhatsapp;
-  final Future<void> Function()? onCopyLink; // Optional
-  final String? infoText; // Optional (Überschrift oder Beschreibung)
+  final Future<void> Function()? onShare; // Einziger Callback!
+  final String? infoText;
 
-  const SocialShareBar({
-    super.key,
-    this.onShareInstagram,
-    this.onShareTiktok,
-    this.onShareFacebook,
-    this.onShareWhatsapp,
-    this.onCopyLink,
-    this.infoText,
-  });
+  const SocialShareBar({super.key, this.onShare, this.infoText});
 
   @override
   Widget build(BuildContext context) {
@@ -52,56 +39,27 @@ class SocialShareBar extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 20,
-            children: [
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.instagram,
-                  color: Color(0xFFC13584),
-                  size: 30,
-                ),
-                onPressed: onShareInstagram,
+          ElevatedButton.icon(
+            icon: Icon(Icons.share, color: AppColors.accent),
+            label: Text(
+              "Bild jetzt teilen",
+              style: TextStyle(
+                color: AppColors.accent,
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
               ),
-              IconButton(
-                icon: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 14,
-                  child: FaIcon(
-                    FontAwesomeIcons.tiktok,
-                    color: Colors.black,
-                    size: 18,
-                  ),
-                ),
-                onPressed: onShareTiktok,
+            ),
+            onPressed: onShare,
+            style: ElevatedButton.styleFrom(
+              elevation: 5,
+              foregroundColor: AppColors.accent,
+              backgroundColor: AppColors.background,
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.facebook,
-                  color: Color(0xFF1877F3),
-                  size: 28,
-                ),
-                onPressed: onShareFacebook,
-              ),
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.whatsapp,
-                  color: Color(0xFF25D366),
-                  size: 28,
-                ),
-                onPressed: onShareWhatsapp,
-              ),
-              if (onCopyLink != null)
-                IconButton(
-                  icon: const Icon(
-                    Icons.link,
-                    color: AppColors.fadedText,
-                    size: 28,
-                  ),
-                  onPressed: onCopyLink,
-                ),
-            ],
+              textStyle: const TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
