@@ -2,32 +2,33 @@
 import 'package:flutter/material.dart';
 import '../../components/band_member_card.dart';
 import '../../data/band_members.dart';
+import '../detail_page.dart';
 
+/// Bereich mit horizontal scrollbarer Reihe von BandMemberCards.
 class BandSection extends StatefulWidget {
-  const BandSection({super.key});
+  const BandSection({Key? key}) : super(key: key);
 
   @override
   State<BandSection> createState() => _BandSectionState();
 }
 
 class _BandSectionState extends State<BandSection> {
-  // Layout-Konstanten
-  static const _cardW = 240.0;
+  static const _cardWidth = 240.0;
   static const _gap = 12.0;
-  static const _h = 340.0;
-  static const _pad = 16.0;
+  static const _height = 340.0;
+  static const _padding = 16.0;
 
-  late final ScrollController _scroll;
+  late final ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
-    _scroll = ScrollController();
+    _scrollController = ScrollController();
   }
 
   @override
   void dispose() {
-    _scroll.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -35,62 +36,72 @@ class _BandSectionState extends State<BandSection> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // Kartenzeile als Widget-Funktion, damit wir sie zweimal verwenden können
     Widget cardsRow() => Row(
-      mainAxisSize: MainAxisSize.min, // nur so breit wie nötig
-      children: [
-        for (final m in bandMembers) ...[
-          SizedBox(
-            width: _cardW,
-            child: BandMemberCard(member: m),
-          ),
-          if (m != bandMembers.last) const SizedBox(width: _gap),
-        ],
-      ],
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(bandMembers.length * 2 - 1, (index) {
+        if (index.isEven) {
+          final member = bandMembers[index ~/ 2];
+          return SizedBox(
+            width: _cardWidth,
+            child: BandMemberCard(
+              member: member,
+              onLongPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => DetailPage(member: member)),
+                );
+              },
+            ),
+          );
+        }
+        return const SizedBox(width: _gap);
+      }),
     );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: _pad, vertical: 8),
+          padding: const EdgeInsets.symmetric(
+            horizontal: _padding,
+            vertical: 8,
+          ),
           child: Text('Die 5 Birds', style: theme.textTheme.headlineSmall),
         ),
-
-        // ───────────────── Karten-Bereich ───────────────────────────
         SizedBox(
-          height: _h,
+          height: _height,
           child: LayoutBuilder(
-            builder: (ctx, cons) {
-              // Gesamtbreite aller Karten + Abstände
-              final totalWidth = bandMembers.length * (_cardW + _gap) - _gap;
+            builder: (context, constraints) {
+              final totalWidth =
+                  bandMembers.length * _cardWidth +
+                  (bandMembers.length - 1) * _gap;
+              final fits = totalWidth + 2 * _padding <= constraints.maxWidth;
 
-              final bool center = totalWidth + 2 * _pad < cons.maxWidth;
-
-              // ------------ breiter Bildschirm → Block mittig ------------
-              if (center) {
+              if (fits) {
                 return Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: _pad),
+                    padding: const EdgeInsets.symmetric(horizontal: _padding),
                     child: cardsRow(),
                   ),
                 );
               }
 
-              // ------------ schmaler Bildschirm → Scroll-Variante ---------
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onHorizontalDragUpdate: (d) {
-                  final newPos = _scroll.offset - d.delta.dx;
-                  _scroll.jumpTo(
-                    newPos.clamp(0.0, _scroll.position.maxScrollExtent),
+                onHorizontalDragUpdate: (details) {
+                  final newOffset = _scrollController.offset - details.delta.dx;
+                  _scrollController.jumpTo(
+                    newOffset.clamp(
+                      0.0,
+                      _scrollController.position.maxScrollExtent,
+                    ),
                   );
                 },
                 child: SingleChildScrollView(
-                  controller: _scroll,
+                  controller: _scrollController,
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: _pad),
+                  padding: const EdgeInsets.symmetric(horizontal: _padding),
                   child: cardsRow(),
                 ),
               );

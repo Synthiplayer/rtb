@@ -1,94 +1,61 @@
 // lib/src/data/band_members.dart
-//
-// Liste aller Bandmitglieder.
-// Hinweis: Für jede Person muss das Bild unter assets/images/members/<name>.jpg
-// vorhanden sein und in pubspec.yaml gelistet werden.
+import '../models/band_model.dart';
+import 'member_descriptions.dart';
 
-import 'package:rtb/src/models/band_member.dart';
-
-/// `final` reicht hier völlig – Compile‑Time‑Konstanz ist nicht notwendig,
-/// weil es nur fünf Objekte sind und wir sie nicht als Keys in `const` Widgets
-/// verwenden.
-final bandMembers = <BandMember>[
+/// Liste aller Bandmitglieder und der Band selbst als erster Eintrag.
+final List<BandMember> bandMembers = [
+  BandMember(
+    name: 'Ragtag Birds',
+    role: '50s & 60s Rock’n’Roll',
+    imageAsset: 'assets/images/members/ragtag_birds.jpg',
+    instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
+    facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
+    emailUrl: Uri(scheme: 'mailto', path: 'info@ragtagbirds.de'),
+    description: MemberDescriptions.ragtagBirds,
+  ),
   BandMember(
     name: 'Danny',
     role: 'Vocals',
     imageAsset: 'assets/images/members/danny.jpg',
-    instagramUrl: Uri(
-      scheme: 'https',
-      host: 'www.instagram.com',
-      path: 'ragtagbirds/',
-    ),
-    facebookUrl: Uri(
-      scheme: 'https',
-      host: 'www.facebook.com',
-      path: 'ragtagbirds/',
-    ),
+    instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
+    facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'danny@ragtagbirds.de'),
+    description: MemberDescriptions.danny,
   ),
-
   BandMember(
     name: 'Sebastian',
     role: 'Lead Guitar',
     imageAsset: 'assets/images/members/sebastian.jpg',
-    instagramUrl: Uri(
-      scheme: 'https',
-      host: 'www.instagram.com',
-      path: 'ragtagbirds/',
-    ),
-    facebookUrl: Uri(
-      scheme: 'https',
-      host: 'www.facebook.com',
-      path: 'ragtagbirds/',
-    ),
+    instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
+    facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'sebastian@ragtagbirds.de'),
+    description: MemberDescriptions.sebastian,
   ),
   BandMember(
     name: 'Joern',
     role: 'Double Bass',
     imageAsset: 'assets/images/members/joern.jpg',
-    instagramUrl: Uri(
-      scheme: 'https',
-      host: 'www.instagram.com',
-      path: 'ragtagbirds/',
-    ),
-    facebookUrl: Uri(
-      scheme: 'https',
-      host: 'www.facebook.com',
-      path: 'ragtagbirds/',
-    ),
+    instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
+    facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'joern@ragtagbirds.de'),
+    description: MemberDescriptions.joern,
   ),
   BandMember(
     name: 'Bjoern',
     role: 'Drums',
     imageAsset: 'assets/images/members/bjoern.jpg',
-    instagramUrl: Uri(
-      scheme: 'https',
-      host: 'www.instagram.com',
-      path: 'ragtagbirds/',
-    ),
-    facebookUrl: Uri(
-      scheme: 'https',
-      host: 'www.facebook.com',
-      path: 'ragtagbirds/',
-    ),
+    instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
+    facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'bjoern@ragtagbirds.de'),
+    description: MemberDescriptions.bjoern,
   ),
   BandMember(
     name: 'Stefan',
     role: 'Stage Piano',
     imageAsset: 'assets/images/members/stefan.jpg',
-    instagramUrl: Uri(
-      scheme: 'https',
-      host: 'www.instagram.com',
-      path: 'ragtagbirds/',
-    ),
-    facebookUrl: Uri(
-      scheme: 'https',
-      host: 'www.facebook.com',
-      path: 'ragtagbirds/',
-    ),
+    instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
+    facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'stefan@ragtagbirds.de'),
+    description: MemberDescriptions.stefan,
   ),
 ];
