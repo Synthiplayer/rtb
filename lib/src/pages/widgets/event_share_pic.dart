@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class EventSharePicWidget extends StatelessWidget {
   final String eventTitle;
+  final String? subtitle;
   final String date;
   final String location;
   final String? priceInfo;
@@ -9,6 +10,7 @@ class EventSharePicWidget extends StatelessWidget {
   const EventSharePicWidget({
     super.key,
     required this.eventTitle,
+    this.subtitle,
     required this.date,
     required this.location,
     this.priceInfo,
@@ -19,6 +21,7 @@ class EventSharePicWidget extends StatelessWidget {
     double size = MediaQuery.of(context).size.width * 0.85;
     if (size > 380) size = 380;
     if (size < 220) size = 220;
+
     return Container(
       width: size,
       height: size,
@@ -32,20 +35,17 @@ class EventSharePicWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          // <-- Das ändert sich!
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Spacer(), // <-- NEU! Rutscht alles nach unten
-            // Bandname
-            const Text(
-              'Ragtag Birds',
+            const Spacer(),
+            // Event-Titel (immer!)
+            Text(
+              eventTitle,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Airstream',
+              style: const TextStyle(
                 color: Colors.white,
-                fontSize: 52,
-                fontWeight: FontWeight.normal,
-                letterSpacing: 1.1,
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
                 shadows: [
                   Shadow(
                     blurRadius: 6,
@@ -55,18 +55,27 @@ class EventSharePicWidget extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
-            // Eventtitel
-            Text(
-              eventTitle,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
+            // Subtitle (falls vorhanden)
+            if (subtitle != null && subtitle!.isNotEmpty) ...[
+              const SizedBox(height: 10),
+              Text(
+                subtitle!,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w400,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 4,
+                      color: Colors.black45,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
+            ],
+            const SizedBox(height: 12),
             // Datum + Uhrzeit
             Text(
               date,
@@ -84,7 +93,7 @@ class EventSharePicWidget extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 8),
             // Ort + Venue
             Text(
               location,
@@ -101,7 +110,7 @@ class EventSharePicWidget extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const Spacer(), // Unten evtl. weniger (oder rausnehmen)
+            const Spacer(),
             // Eintritt/Preis-Info
             if (priceInfo != null && priceInfo!.isNotEmpty)
               Text(

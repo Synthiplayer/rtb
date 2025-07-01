@@ -12,6 +12,7 @@ external void shareImageWeb(Object bytes, String filename, String text);
 
 class GigShareButton extends StatelessWidget {
   final String eventTitle;
+  final String? subtitle; // <--- NEU!
   final String date;
   final String location;
   final String? priceInfo;
@@ -19,6 +20,7 @@ class GigShareButton extends StatelessWidget {
   const GigShareButton({
     super.key,
     required this.eventTitle,
+    this.subtitle, // <--- NEU!
     required this.date,
     required this.location,
     this.priceInfo,
@@ -34,7 +36,7 @@ class GigShareButton extends StatelessWidget {
     );
 
     final sharePicWidget = Positioned(
-      top: -10000, // wirklich weit außerhalb des sichtbaren Bereichs
+      top: -10000,
       left: 0,
       child: Material(
         color: Colors.transparent,
@@ -43,6 +45,7 @@ class GigShareButton extends StatelessWidget {
             controller: screenshotController,
             child: EventSharePicWidget(
               eventTitle: eventTitle,
+              subtitle: subtitle, // <--- NEU!
               date: date,
               location: location,
               priceInfo: priceInfo,
@@ -56,9 +59,7 @@ class GigShareButton extends StatelessWidget {
     final overlayEntry = OverlayEntry(builder: (ctx) => sharePicWidget);
     overlay.insert(overlayEntry);
 
-    // Wieder normales kurzes Delay
     await Future.delayed(const Duration(milliseconds: 120));
-
     final imageBytes = await screenshotController.capture();
 
     overlayEntry.remove();

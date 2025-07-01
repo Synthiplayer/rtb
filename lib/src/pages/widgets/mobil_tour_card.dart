@@ -86,18 +86,14 @@ class _MobilTourCardState extends State<MobilTourCard> {
     );
 
     // Unaufgeklappte linke Seite: Event, Datum/Uhrzeit, Ort
+    final showDate = formattedTime.isNotEmpty
+        ? '$formattedDate – $formattedTime'
+        : formattedDate;
+
     final leftCol = <Widget>[
       Text(event, style: Theme.of(context).textTheme.titleMedium),
-      Row(
-        children: [
-          if (formattedDate.isNotEmpty)
-            Text(formattedDate, style: Theme.of(context).textTheme.bodyMedium),
-          if (formattedTime.isNotEmpty) ...[
-            if (formattedDate.isNotEmpty) const SizedBox(width: 8),
-            Text(formattedTime, style: Theme.of(context).textTheme.bodyMedium),
-          ],
-        ],
-      ),
+      if (showDate.isNotEmpty)
+        Text(showDate, style: Theme.of(context).textTheme.bodyMedium),
       if (city.isNotEmpty || venue.isNotEmpty)
         Text('$city, $venue', style: Theme.of(context).textTheme.bodyMedium),
     ];
@@ -120,9 +116,10 @@ class _MobilTourCardState extends State<MobilTourCard> {
                     alignment: Alignment.centerLeft,
                     child: GigShareButton(
                       eventTitle: event,
-                      date:
-                          formattedDate +
-                          (formattedTime.isNotEmpty ? ' $formattedTime' : ''),
+                      subtitle: subtitle,
+                      date: formattedTime.isNotEmpty
+                          ? '$formattedDate – $formattedTime'
+                          : formattedDate,
                       location: [
                         city,
                         venue,
