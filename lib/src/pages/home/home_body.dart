@@ -1,7 +1,7 @@
 // lib/src/pages/home/home_body.dart
 
 import 'package:flutter/material.dart';
-import '../../components/hero_header.dart';
+import '../../components/hero_header_slide_show.dart';
 import '../widgets/band_section.dart';
 import '../../components/spotify_section.dart';
 import '../widgets/tour_section.dart';
@@ -15,7 +15,7 @@ class HomeBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
-          HeroHeader(),
+          const HeroHeaderSlideshow(),
           SizedBox(height: 16),
           // ⇩ TourSection direkt unter dem Header ⇩
           TourSection(),

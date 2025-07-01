@@ -1,18 +1,27 @@
-import 'package:js/js.dart';
+import 'dart:js_interop';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
-import 'dart:typed_data';
 
 import 'event_share_pic.dart';
 import '../../ui/app_colors.dart';
 
-// JS-Interop
+// Interop zu JS (web/index.html muss wie gehabt die Funktion exportieren!)
 @JS('shareImageWeb')
-external void shareImageWeb(Object bytes, String filename, String text);
+external JSAny? _shareImageWeb(
+  JSUint8Array bytes,
+  String filename,
+  String text,
+);
+
+void shareImageWeb(Uint8List bytes, String filename, String text) {
+  final jsBytes = bytes.toJS;
+  _shareImageWeb(jsBytes, filename, text);
+}
 
 class GigShareButton extends StatelessWidget {
   final String eventTitle;
-  final String? subtitle; // <--- NEU!
+  final String? subtitle;
   final String date;
   final String location;
   final String? priceInfo;
@@ -20,7 +29,7 @@ class GigShareButton extends StatelessWidget {
   const GigShareButton({
     super.key,
     required this.eventTitle,
-    this.subtitle, // <--- NEU!
+    this.subtitle,
     required this.date,
     required this.location,
     this.priceInfo,
@@ -45,7 +54,7 @@ class GigShareButton extends StatelessWidget {
             controller: screenshotController,
             child: EventSharePicWidget(
               eventTitle: eventTitle,
-              subtitle: subtitle, // <--- NEU!
+              subtitle: subtitle,
               date: date,
               location: location,
               priceInfo: priceInfo,
