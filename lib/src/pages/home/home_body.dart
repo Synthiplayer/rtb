@@ -15,7 +15,7 @@ class HomeBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
-          const HeroHeaderSlideshow(),
+          HeroHeaderSlideshow(),
           SizedBox(height: 16),
           // ⇩ TourSection direkt unter dem Header ⇩
           TourSection(),

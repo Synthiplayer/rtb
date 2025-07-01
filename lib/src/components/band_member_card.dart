@@ -9,8 +9,7 @@ class BandMemberCard extends StatelessWidget {
   final BandMember member;
   final VoidCallback? onLongPress;
 
-  const BandMemberCard({Key? key, required this.member, this.onLongPress})
-    : super(key: key);
+  const BandMemberCard({super.key, required this.member, this.onLongPress});
 
   @override
   Widget build(BuildContext context) {

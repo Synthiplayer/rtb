@@ -6,7 +6,7 @@ import '../detail_page.dart';
 
 /// Bereich mit horizontal scrollbarer Reihe von BandMemberCards.
 class BandSection extends StatefulWidget {
-  const BandSection({Key? key}) : super(key: key);
+  const BandSection({super.key});
 
   @override
   State<BandSection> createState() => _BandSectionState();

@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// mit großem Bild oben und darunter eine Zeile mit Name, Rolle und Social-Icons.
 class DetailPage extends StatelessWidget {
   final BandMember member;
-  const DetailPage({Key? key, required this.member}) : super(key: key);
+  const DetailPage({super.key, required this.member});
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class _DetailIcon extends StatelessWidget {
   final IconData icon;
   final Uri url;
 
-  const _DetailIcon(this.icon, this.url, {Key? key}) : super(key: key);
+  const _DetailIcon(this.icon, this.url);
 
   @override
   Widget build(BuildContext context) => IconButton(

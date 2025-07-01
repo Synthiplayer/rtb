@@ -30,17 +30,22 @@ dependencies:
   # Google Fonts
   google_fonts: ^5.0.0
 
-
-  web: any
-  js: ^0.7.2
+# Diese drei Zeilen waren nicht nötig und führen nur zu dart-fix-Fluktuationen:
+#   web: any
+#   js: ^0.7.2
+#   flutter_web_plugins: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
 
+  # Nur wenn du das Icon-Generator-Tool nutzen möchtest:
+  # flutter_launcher_icons: ^0.12.0
+
 flutter:
   uses-material-design: true
+
   assets:
     - assets/images/logo.png
     - assets/images/hero.jpeg
@@ -48,22 +53,8 @@ flutter:
     - assets/images/hero3.jpeg
     - assets/images/sharepic_bg_v3.png
     - assets/images/members/
+
   fonts:
     - family: Airstream
       fonts:
         - asset: assets/fonts/AIRSTREA.ttf
-
-flutter_launcher_icons:
-  image_path: assets/icon/icon.png
-  android: false
-  ios: false
-  windows:
-    generate: false
-  macos:
-    generate: false
-  web:
-    generate: true
-    web_location: app-icons
-    image_path: assets/icon/icon.png
-    background_color: "#FFFFFF"
-    theme_color: "#1ED760"
