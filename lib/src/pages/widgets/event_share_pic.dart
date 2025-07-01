@@ -25,7 +25,7 @@ class EventSharePicWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         image: const DecorationImage(
-          image: AssetImage('assets/images/sharepic_bg_v2.png'),
+          image: AssetImage('assets/images/sharepic_bg_v3.png'),
           fit: BoxFit.cover,
         ),
       ),

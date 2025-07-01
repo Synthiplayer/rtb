@@ -28,7 +28,7 @@ class _TourSectionState extends State<TourSection> {
     // Das hier ist sicher, weil context nun verfügbar ist!
     if (!_bgPrecached) {
       precacheImage(
-        const AssetImage('assets/images/sharepic_bg_v2.png'),
+        const AssetImage('assets/images/sharepic_bg_v3.png'),
         context,
       );
       _bgPrecached = true;
