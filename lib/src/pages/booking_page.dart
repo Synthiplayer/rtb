@@ -7,6 +7,13 @@ import '../components/responsive_scaffold.dart';
 class BookingPage extends StatelessWidget {
   const BookingPage({super.key});
 
+  Future<void> _launchMail() => launchUrl(
+    Uri.parse('mailto:booking@ragtagbirds.de?subject=Buchungsanfrage'),
+  );
+
+  Future<void> _downloadEpk() =>
+      launchUrl(Uri.parse('https://ragtagbirds.de/epk/epk.zip'));
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveScaffold(
@@ -22,18 +29,35 @@ class BookingPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             const Text(
-              'Für Buchungsanfragen schreibt uns bitte eine E-Mail an:\n'
-              'booking@ragtagbirds.de\n\n'
-              'Oder ruft uns an unter:\n'
-              '+49 151 241017641',
+              'Für telefonische Anfragen wende dich gerne direkt an Danny:\n'
+              'Telefon: +49 151 24101764\n\n'
+              'Für alle anderen Buchungsanfragen schreib uns bitte eine E-Mail an:\n'
+              'booking@ragtagbirds.de',
+              style: TextStyle(height: 1.4),
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: () {
-                launchUrl(Uri.parse('mailto:booking@ragtagbirds.de'));
-              },
+              onPressed: _launchMail,
               icon: const Icon(Icons.mail_outline),
               label: const Text('Per E-Mail anfragen'),
+            ),
+
+            const SizedBox(height: 40),
+
+            Text(
+              'Download Electronic Press Kit',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Hier kannst du das offizielle EPK herunterladen:',
+              style: TextStyle(height: 1.4),
+            ),
+            const SizedBox(height: 8),
+            TextButton.icon(
+              onPressed: _downloadEpk,
+              icon: const Icon(Icons.download_outlined),
+              label: const Text('EPK (ZIP) herunterladen'),
             ),
           ],
         ),

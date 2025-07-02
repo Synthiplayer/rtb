@@ -1,5 +1,6 @@
 // lib/src/pages/widgets/band_section.dart
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../components/band_member_card.dart';
 import '../../data/band_members.dart';
 import '../detail_page.dart';
@@ -46,10 +47,8 @@ class _BandSectionState extends State<BandSection> {
             child: BandMemberCard(
               member: member,
               onLongPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => DetailPage(member: member)),
-                );
+                final idx = bandMembers.indexOf(member);
+                context.push('/member/$idx');
               },
             ),
           );

@@ -35,6 +35,26 @@
   <meta name="apple-mobile-web-app-title" content="Ragtag Birds">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
+  <!-- Fetch-Interceptor für tourdaten.json: kein Cache -->
+  <script>
+    (function() {
+      const originalFetch = window.fetch.bind(window);
+      window.fetch = (resource, init = {}) => {
+        let url = typeof resource === 'string' ? resource : resource.url;
+        if (url.endsWith('/tour/tourdaten.json')) {
+          init = init || {};
+          init.cache = 'no-cache';
+          init.headers = Object.assign({
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }, init.headers || {});
+        }
+        return originalFetch(resource, init);
+      };
+    })();
+  </script>
+
   <!-- Flutter Web Loader -->
   <script src="/flutter.js" defer></script>
   <script src="/flutter_bootstrap.js" defer></script>
