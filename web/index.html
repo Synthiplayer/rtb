@@ -1,38 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <base href="/"/>
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+  <title>Ragtag Birds</title>
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  <!-- Manifest für PWA -->
+  <link rel="manifest" href="/manifest.json"/>
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+  <!-- Theme-Farbe für Browser & Android-Splash -->
+  <meta name="theme-color" content="#1ED760"/>
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="rtb webapp">
+  <!-- Favicon für Desktop-Browser -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="icon" type="image/png" href="/favicon.png"/>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="rtb">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <!-- PWA-Icons für Android/Chrome -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/app-icons/Icon-192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="/app-icons/Icon-512.png"/>
+  <!-- Maskable Icons für Android/Chrome -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/app-icons/Icon-maskable-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/app-icons/Icon-maskable-512.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <!-- Apple Touch Icons für iOS Homescreen -->
+  <link rel="apple-touch-icon" sizes="120x120" href="/app-icons/Icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/app-icons/Icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/app-icons/Icon-192.png">
 
-  <title>rtb</title>
-  <link rel="manifest" href="manifest.json">
+  <!-- iOS Web App Einstellungen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Ragtag Birds">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Fetch-Interceptor für tourdaten.json: kein Cache -->
+  <script>
+    (function() {
+      const originalFetch = window.fetch.bind(window);
+      window.fetch = (resource, init = {}) => {
+        let url = typeof resource === 'string' ? resource : resource.url;
+        if (url.endsWith('/tour/tourdaten.json')) {
+          init = init || {};
+          init.cache = 'no-cache';
+          init.headers = Object.assign({
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }, init.headers || {});
+        }
+        return originalFetch(resource, init);
+      };
+    })();
+  </script>
+
+  <!-- Flutter Web Loader -->
+  <script src="/flutter.js" defer></script>
+  <script src="/flutter_bootstrap.js" defer></script>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<!-- Content wird durch Flutter geladen -->
+<noscript>Bitte aktiviere JavaScript, um diese Anwendung zu verwenden.</noscript>
+
+<!-- SHARE IMAGE WEB API (für Flutter Web Interop) -->
+<script>
+  window.shareImageWeb = async function(bytes, filename, text) {
+    const blob = new Blob([new Uint8Array(bytes)], { type: 'image/png' });
+    const file = new File([blob], filename, { type: blob.type });
+    const shareData = { files: [file], text };
+    if (navigator.canShare && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+      } catch (e) {
+        alert("Teilen wurde abgebrochen oder ist nicht verfügbar.");
+      }
+    } else {
+      // Fallback: Download
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      alert("Teilen wird von deinem Browser nicht unterstützt. Das Bild wurde stattdessen heruntergeladen.");
+    }
+  }
+</script>
 </body>
 </html>
