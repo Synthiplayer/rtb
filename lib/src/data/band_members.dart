@@ -32,7 +32,7 @@ final List<BandMember> bandMembers = [
     description: MemberDescriptions.sebastian,
   ),
   BandMember(
-    name: 'Joern',
+    name: 'Jörn',
     role: 'Double Bass',
     imageAsset: 'assets/images/members/joern.jpg',
     instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
@@ -41,7 +41,7 @@ final List<BandMember> bandMembers = [
     description: MemberDescriptions.joern,
   ),
   BandMember(
-    name: 'Bjoern',
+    name: 'Björn',
     role: 'Drums',
     imageAsset: 'assets/images/members/bjoern.jpg',
     instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),

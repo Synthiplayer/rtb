@@ -64,7 +64,31 @@ class _BandSectionState extends State<BandSection> {
             horizontal: _padding,
             vertical: 8,
           ),
-          child: Text('Die 5 Birds', style: theme.textTheme.headlineSmall),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Airstream-Schrift für die Überschrift
+              Text(
+                'About the Birds',
+                style: Theme.of(context).textTheme.headlineMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8), // Abstand
+              // Roboto-Schrift für die Instruktion
+              Text(
+                'Für Info Bild gedrückt halten',
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              // Optionale Zusatzzeile mit englischem Hinweis
+              Text(
+                'Hold for more',
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: _height,
