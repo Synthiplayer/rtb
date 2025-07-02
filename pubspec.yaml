@@ -10,29 +10,51 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
+  # UI & Routing
   go_router: ^15.2.0
   flutter_riverpod: ^2.6.1
-  flutter_svg: ^2.2.0
 
-  # Für Roboto via Google Fonts
+  # Icons & SVG
+  cupertino_icons: ^1.0.8
+  flutter_svg: ^2.2.0
+  url_launcher: ^6.3.1
+  font_awesome_flutter: ^10.8.0
+  cached_network_image: ^3.4.1
+  http: ^1.4.0
+  photo_view: ^0.15.0
+  intl: ^0.20.2
+  path_provider: ^2.1.5
+  screenshot: ^3.0.0
+  flutter_js: ^0.8.3
+
+  # Google Fonts
   google_fonts: ^5.0.0
+
+# Diese drei Zeilen waren nicht nötig und führen nur zu dart-fix-Fluktuationen:
+#   web: any
+#   js: ^0.7.2
+#   flutter_web_plugins: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
 
+  # Nur wenn du das Icon-Generator-Tool nutzen möchtest:
+  # flutter_launcher_icons: ^0.12.0
 
 flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/logo.svg
+    - assets/images/logo.png
     - assets/images/hero.jpeg
+    - assets/images/hero2.jpeg
+    - assets/images/hero3.jpeg
+    - assets/images/sharepic_bg_v3.png
+    - assets/images/members/
 
   fonts:
     - family: Airstream
       fonts:
-        # hier die Datei in assets/fonts/ airstream.ttf
         - asset: assets/fonts/AIRSTREA.ttf
