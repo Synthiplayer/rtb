@@ -1,9 +1,8 @@
-// lib/src/pages/widgets/band_section.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../components/band_member_card.dart';
 import '../../data/band_members.dart';
-import '../detail_page.dart';
+import 'long_press_progress.dart'; // hier importieren
 
 /// Bereich mit horizontal scrollbarer Reihe von BandMemberCards.
 class BandSection extends StatefulWidget {
@@ -33,29 +32,29 @@ class _BandSectionState extends State<BandSection> {
     super.dispose();
   }
 
+  Widget cardsRow() => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: List.generate(bandMembers.length * 2 - 1, (index) {
+      if (index.isEven) {
+        final member = bandMembers[index ~/ 2];
+        return SizedBox(
+          width: _cardWidth,
+          child: LongPressProgress(
+            onLongPressComplete: () {
+              final idx = bandMembers.indexOf(member);
+              context.push('/member/$idx');
+            },
+            child: BandMemberCard(member: member),
+          ),
+        );
+      }
+      return const SizedBox(width: _gap);
+    }),
+  );
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    Widget cardsRow() => Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(bandMembers.length * 2 - 1, (index) {
-        if (index.isEven) {
-          final member = bandMembers[index ~/ 2];
-          return SizedBox(
-            width: _cardWidth,
-            child: BandMemberCard(
-              member: member,
-              onLongPress: () {
-                final idx = bandMembers.indexOf(member);
-                context.push('/member/$idx');
-              },
-            ),
-          );
-        }
-        return const SizedBox(width: _gap);
-      }),
-    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
