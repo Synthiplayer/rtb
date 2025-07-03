@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../components/band_videos_gallery.dart';
-import '../../components/responsive_scaffold.dart';
 import '../../components/band_drawer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -9,14 +8,19 @@ class MediaDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveScaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Medien'),
+        leading: Navigator.of(context).canPop()
+            ? BackButton()
+            : null, // Nur anzeigen, wenn möglich
+      ),
       drawer: const BandDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Deine neue Video-Galerie!
             const BandVideosGallery(),
             const SizedBox(height: 32),
             Text(
@@ -24,7 +28,6 @@ class MediaDetailPage extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
-
             const SizedBox(height: 12),
             Wrap(
               alignment: WrapAlignment.center,
