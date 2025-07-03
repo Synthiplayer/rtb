@@ -54,8 +54,6 @@ class _BandSectionState extends State<BandSection> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

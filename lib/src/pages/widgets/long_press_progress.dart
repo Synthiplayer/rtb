@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 /// Zeigt eine runde Fortschritts­anzeige über [child] beim langen Drücken.
 /// Wenn der Fortschritt (dauerSeconds) erreicht ist, wird [onLongPressComplete] getriggert.
