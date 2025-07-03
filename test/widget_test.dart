@@ -1,7 +1,7 @@
 // test/widget_test.dart
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rtb/src/app.dart'; // Pfad zu eurem App-Entry
+import 'package:rtb/app.dart'; // Pfad zu eurem App-Entry
 
 void main() {
   testWidgets('HomePage zeigt Willkommens-Text', (WidgetTester tester) async {

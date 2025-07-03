@@ -1,8 +1,8 @@
 // File: lib/src/pages/home/home_page.dart
 
 import 'package:flutter/material.dart';
-import '../../components/responsive_scaffold.dart';
-import 'home_body.dart';
+import '../widgets/responsive_scaffold.dart';
+import '../sections/home_body.dart';
 
 /// Hauptseite der Ragtag Birds Web-App (PWA).
 /// Responsive Scaffold mit Menü und Content.

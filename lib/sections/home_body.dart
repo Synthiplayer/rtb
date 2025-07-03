@@ -1,11 +1,11 @@
 // lib/src/pages/home/home_body.dart
 
 import 'package:flutter/material.dart';
-import '../../components/hero_header_slide_show.dart';
-import '../widgets/band_section.dart';
-import '../widgets/media_section.dart';
-import '../widgets/spotify_section.dart';
-import '../widgets/tour_section.dart';
+import '../widgets/hero_header_slide_show.dart';
+import 'band_section.dart';
+import 'media_section.dart';
+import 'spotify_section.dart';
+import 'tour_section.dart';
 
 /// Startseite-Inhalt: Header, Tourdaten, Bandvorstellung, Media & Spotify.
 class HomeBody extends StatelessWidget {

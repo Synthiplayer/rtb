@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'long_press_progress.dart';
+import '../widgets/long_press_progress.dart';
 
 /// Teaser-Bereich für die Media-Seite mit Long-Press-Navigation.
 /// Zeigt Bild und Hinweistext an. Langer Druck öffnet die Detailseite.

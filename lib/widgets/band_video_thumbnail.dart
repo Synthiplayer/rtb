@@ -39,7 +39,8 @@ class BandVideoThumbnail extends StatelessWidget {
           ..height = '315'
           ..src = 'https://www.youtube.com/embed/$videoId?autoplay=1&mute=1'
           ..style.border = 'none'
-          ..allowFullscreen = true;
+          ..allow =
+              'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
         return iframe;
       });
       _registeredIframes.add(iframeViewType);

@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-import '../components/band_drawer.dart';
-import '../components/responsive_scaffold.dart';
+import '../widgets/band_drawer.dart';
+import '../widgets/responsive_scaffold.dart';
 
 /// Zeigt eine Galerie mit Band-Fotos als Gitter und lädt Bilder von der Server-API.
 ///

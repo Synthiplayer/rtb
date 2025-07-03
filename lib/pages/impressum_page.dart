@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/band_drawer.dart';
-import '../components/responsive_scaffold.dart';
+import '../widgets/band_drawer.dart';
+import '../widgets/responsive_scaffold.dart';
 
 /// Zeigt das Impressum gemäß § 5 TMG sowie Kontaktdaten und rechtliche Hinweise.
 ///

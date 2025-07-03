@@ -31,18 +31,13 @@ dependencies:
   # Google Fonts
   google_fonts: ^5.0.0
 
-# Diese drei Zeilen waren nicht nötig und führen nur zu dart-fix-Fluktuationen:
-#   web: any
-#   js: ^0.7.2
-#   flutter_web_plugins: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
 
-  # Nur wenn du das Icon-Generator-Tool nutzen möchtest:
-  # flutter_launcher_icons: ^0.12.0
+
 
 flutter:
   uses-material-design: true

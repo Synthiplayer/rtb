@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'event_share_pic.dart';
-import '../../ui/app_colors.dart';
+import '../ui/app_colors.dart';
 
 /// Interop zu JS: Ruft die im Web (index.html) bereitgestellte Funktion `shareImageWeb` auf.
 @JS('shareImageWeb')

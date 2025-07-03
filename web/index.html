@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <meta name="description" content="Retro-Rock'n'Roll aus Stade. Ragtag Birds – die Band-Website.">
+  <meta property="og:title" content="Ragtag Birds" />
+  <meta property="og:description" content="50s & 60s Rock'n'Roll. Offizielle Bandseite." />
+  <meta property="og:image" content="/sharepic_bg_v3.png" />
+
+
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
+
   <base href="/"/>
 
 
@@ -45,7 +50,7 @@
       const originalFetch = window.fetch.bind(window);
       window.fetch = (resource, init = {}) => {
         let url = typeof resource === 'string' ? resource : resource.url;
-        if (url.endsWith('/tour/tourdaten.json')) {
+        if (url.endsWith('/tour/tour.json')) {
           init = init || {};
           init.cache = 'no-cache';
           init.headers = Object.assign({

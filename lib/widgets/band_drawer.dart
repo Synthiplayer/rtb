@@ -27,7 +27,7 @@ class BandDrawer extends StatelessWidget {
             },
           ),
           const Divider(),
-          const _DrawerItem('Gallery', '/gallery'),
+          const _DrawerItem('Galerie', '/gallery'),
           const _DrawerItem('Referenzen', '/references'),
           const _DrawerItem('Booking', '/booking'),
           const _DrawerItem('Impressum', '/impressum'),

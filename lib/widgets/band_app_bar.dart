@@ -59,7 +59,7 @@ class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: isMobile
           ? null
           : [
-              _NavButton(label: 'Gallery', route: '/gallery'),
+              _NavButton(label: 'Galerie', route: '/gallery'),
               _NavButton(label: 'Referenzen', route: '/references'),
               _NavButton(label: 'Booking', route: '/booking'),
               _NavButton(label: 'Impressum', route: '/impressum'),

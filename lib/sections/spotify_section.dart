@@ -73,8 +73,7 @@ class SpotifySection extends StatelessWidget {
                   ..height = '100%'
                   ..allow =
                       'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
-                  ..loading = 'lazy'
-                  ..allowFullscreen = true;
+                  ..loading = 'lazy';
 
                 // Styling
                 iframe.style

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../components/band_member_card.dart';
-import '../../data/band_members.dart';
-import 'long_press_progress.dart';
+import '../widgets/band_member_card.dart';
+import '../data/band_members.dart';
+import '../widgets/long_press_progress.dart';
 
 /// Horizontale Sektion mit BandMemberCards.
 /// Ermöglicht Long-Press für Details und horizontales Scrollen auf kleinen Screens.

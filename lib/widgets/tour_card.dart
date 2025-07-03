@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../ui/breakpoints.dart';
+import '../ui/breakpoints.dart';
 import 'desktop_tour_card.dart';
 import 'mobil_tour_card.dart';
 

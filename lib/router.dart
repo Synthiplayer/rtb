@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rtb/src/pages/booking_page.dart';
-import 'package:rtb/src/pages/gallery_page.dart';
-import 'package:rtb/src/pages/home/home_page.dart';
-import 'package:rtb/src/pages/impressum_page.dart';
-import 'package:rtb/src/pages/detail_page.dart';
-import 'package:rtb/src/pages/references_page.dart';
-import 'package:rtb/src/data/band_members.dart';
-import 'package:rtb/src/pages/widgets/media_detail_page.dart';
+import 'package:rtb/pages/booking_page.dart';
+import 'package:rtb/pages/gallery_page.dart';
+import 'package:rtb/pages/home_page.dart';
+import 'package:rtb/pages/impressum_page.dart';
+import 'package:rtb/pages/detail_page.dart';
+import 'package:rtb/pages/references_page.dart';
+import 'package:rtb/data/band_members.dart';
+import 'package:rtb/pages/media_detail_page.dart';
 
 final GoRouter appRouter = GoRouter(
   debugLogDiagnostics: true,

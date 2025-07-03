@@ -103,7 +103,7 @@ class DesktopTourCard extends StatelessWidget {
             Expanded(
               child: Text(
                 event,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.titleMedium,
                 overflow: TextOverflow.ellipsis,
               ),
             ),

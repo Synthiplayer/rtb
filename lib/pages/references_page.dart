@@ -1,9 +1,9 @@
 // File: lib/src/pages/references_page.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rtb/src/components/responsive_scaffold.dart';
-import 'package:rtb/src/components/band_drawer.dart';
-import 'package:rtb/src/ui/breakpoints.dart'; // für mobile Cutoff
+import 'package:rtb/widgets/responsive_scaffold.dart';
+import 'package:rtb/widgets/band_drawer.dart';
+import 'package:rtb/ui/breakpoints.dart'; // für mobile Cutoff
 
 /// Zeigt eine Liste der wichtigsten Auftrittsorte (Venues) der Band.
 ///

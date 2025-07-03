@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../components/band_videos_gallery.dart';
-import '../../components/band_drawer.dart';
+import '../widgets/band_videos_gallery.dart';
+import '../widgets/band_drawer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// Medien-Seite: Zeigt Video-Galerie + Streaming-Links.

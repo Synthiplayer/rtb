@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../components/band_drawer.dart';
-import '../components/responsive_scaffold.dart';
+import '../widgets/band_drawer.dart';
+import '../widgets/responsive_scaffold.dart';
 
 /// Buchungs-/Booking-Seite der Band.
 ///
