@@ -1,3 +1,4 @@
+// File: lib/src/components/band_drawer.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,6 +25,7 @@ class BandDrawer extends StatelessWidget {
         ),
         const Divider(),
         const _DrawerItem('Gallery', '/gallery'),
+        const _DrawerItem('Referenzen', '/references'),
         const _DrawerItem('Booking', '/booking'),
         const _DrawerItem('Impressum', '/impressum'),
       ],
@@ -34,6 +36,7 @@ class BandDrawer extends StatelessWidget {
 class _DrawerItem extends StatelessWidget {
   final String title, route;
   const _DrawerItem(this.title, this.route);
+
   @override
   Widget build(BuildContext context) => ListTile(
     title: Text(title),

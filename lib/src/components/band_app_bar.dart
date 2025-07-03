@@ -1,3 +1,4 @@
+// File: lib/src/components/band_app_bar.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,13 +14,12 @@ class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
     final isMobile = MediaQuery.of(context).size.width < 800;
 
     return AppBar(
-      // Auf Desktop: breiter Leading-Bereich für kompletten Bandnamen!
       leadingWidth: isMobile ? null : 180,
       leading: showDrawer
           ? Builder(
-              builder: (context) => IconButton(
+              builder: (ctx) => IconButton(
                 icon: const Icon(Icons.menu),
-                onPressed: () => Scaffold.of(context).openDrawer(),
+                onPressed: () => Scaffold.of(ctx).openDrawer(),
               ),
             )
           : TextButton(
@@ -35,7 +35,6 @@ class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-      // Auf Mobile: Bandname als Title, mittig!
       title: isMobile
           ? GestureDetector(
               onTap: () => context.go('/'),
@@ -49,12 +48,12 @@ class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : const SizedBox.shrink(),
-
       centerTitle: isMobile,
       actions: isMobile
           ? null
           : [
               _NavButton(label: 'Gallery', route: '/gallery'),
+              _NavButton(label: 'Referenzen', route: '/references'),
               _NavButton(label: 'Booking', route: '/booking'),
               _NavButton(label: 'Impressum', route: '/impressum'),
               const SizedBox(width: 18),
