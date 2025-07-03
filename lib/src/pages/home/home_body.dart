@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import '../../components/hero_header_slide_show.dart';
 import '../widgets/band_section.dart';
-import '../../components/spotify_section.dart';
+import '../widgets/media_section.dart';
+import '../widgets/spotify_section.dart';
 import '../widgets/tour_section.dart';
 
 class HomeBody extends StatelessWidget {
@@ -23,6 +24,10 @@ class HomeBody extends StatelessWidget {
 
           // Erst die Band-Section (statt Spotify zuerst)
           BandSection(),
+          SizedBox(height: 32),
+
+          //media sektion youtube etc
+          MediaSection(),
           SizedBox(height: 32),
 
           // Dann Spotify
