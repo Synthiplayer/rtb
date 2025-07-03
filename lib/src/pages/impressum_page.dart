@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import '../components/band_drawer.dart';
 import '../components/responsive_scaffold.dart';
 
+/// Zeigt das Impressum gemäß § 5 TMG sowie Kontaktdaten und rechtliche Hinweise.
+///
+/// Wird als eigene Seite ("/impressum") angezeigt.
+/// Enthält Adressdaten, Vertreter, Kontakt sowie Hinweise zu Haftung und Urheberrecht.
+
 class ImpressumPage extends StatelessWidget {
   const ImpressumPage({super.key});
 

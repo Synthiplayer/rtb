@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../components/band_member_card.dart';
 import '../../data/band_members.dart';
-import 'long_press_progress.dart'; // hier importieren
+import 'long_press_progress.dart';
 
-/// Bereich mit horizontal scrollbarer Reihe von BandMemberCards.
+/// Horizontale Sektion mit BandMemberCards.
+/// Ermöglicht Long-Press für Details und horizontales Scrollen auf kleinen Screens.
 class BandSection extends StatefulWidget {
   const BandSection({super.key});
 
@@ -32,6 +33,7 @@ class _BandSectionState extends State<BandSection> {
     super.dispose();
   }
 
+  /// Baut eine Reihe von BandMemberCards mit Abständen.
   Widget cardsRow() => Row(
     mainAxisSize: MainAxisSize.min,
     children: List.generate(bandMembers.length * 2 - 1, (index) {
@@ -66,20 +68,19 @@ class _BandSectionState extends State<BandSection> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Airstream-Schrift für die Überschrift
+              // Bandname-Überschrift (Airstream)
               Text(
                 'About the Birds',
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 8), // Abstand
-              // Roboto-Schrift für die Instruktion
+              const SizedBox(height: 8),
+              // Kurze Anweisung (Roboto)
               Text(
                 'Für Info Bild gedrückt halten',
                 style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
-              // Optionale Zusatzzeile mit englischem Hinweis
               Text(
                 'Hold for more',
                 style: Theme.of(context).textTheme.bodyMedium,
@@ -97,6 +98,7 @@ class _BandSectionState extends State<BandSection> {
                   (bandMembers.length - 1) * _gap;
               final fits = totalWidth + 2 * _padding <= constraints.maxWidth;
 
+              // Wenn alles auf einmal reinpasst: keine ScrollView
               if (fits) {
                 return Center(
                   child: Padding(
@@ -106,6 +108,7 @@ class _BandSectionState extends State<BandSection> {
                 );
               }
 
+              // Sonst: horizontal scrollbar, Drag-Scrolling aktivieren
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onHorizontalDragUpdate: (details) {

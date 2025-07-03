@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Sharepic-Widget für Events: Zeigt Titel, Datum, Ort und Preis als Bild.
+/// Wird für das Teilen von Gig-Infos auf Socials verwendet.
 class EventSharePicWidget extends StatelessWidget {
   final String eventTitle;
   final String? subtitle;
@@ -18,6 +20,7 @@ class EventSharePicWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Kachel-Größe passt sich Bildschirm an, begrenzt auf [220, 380] px.
     double size = MediaQuery.of(context).size.width * 0.85;
     if (size > 380) size = 380;
     if (size < 220) size = 220;
@@ -38,7 +41,7 @@ class EventSharePicWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             const Spacer(),
-            // Event-Titel (immer!)
+            // Event-Titel (immer sichtbar)
             Text(
               eventTitle,
               textAlign: TextAlign.center,
@@ -55,7 +58,7 @@ class EventSharePicWidget extends StatelessWidget {
                 ],
               ),
             ),
-            // Subtitle (falls vorhanden)
+            // Optionaler Subtitle
             if (subtitle != null && subtitle!.isNotEmpty) ...[
               const SizedBox(height: 10),
               Text(
@@ -76,7 +79,7 @@ class EventSharePicWidget extends StatelessWidget {
               ),
             ],
             const SizedBox(height: 12),
-            // Datum + Uhrzeit
+            // Datum/Uhrzeit
             Text(
               date,
               style: const TextStyle(
@@ -111,7 +114,7 @@ class EventSharePicWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            // Eintritt/Preis-Info
+            // Eintritt/Preis-Info (nur falls gesetzt)
             if (priceInfo != null && priceInfo!.isNotEmpty)
               Text(
                 priceInfo!,

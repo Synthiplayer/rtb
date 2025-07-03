@@ -11,12 +11,18 @@ class MobilTourCard extends StatefulWidget {
   State<MobilTourCard> createState() => _MobilTourCardState();
 }
 
+/// Gibt einen bereinigten String zurück, oder einen Fallback ("" oder null).
+String safeString(dynamic value, {String fallback = ''}) {
+  if (value is String) return value.trim();
+  return fallback;
+}
+
 class _MobilTourCardState extends State<MobilTourCard> {
   bool _expanded = false;
 
   String? _buildPriceInfo(String? vvk, String? ak) {
     if ((vvk == null || vvk.isEmpty) && (ak == null || ak.isEmpty)) {
-      return "Eintritt frei";
+      return null; // Nicht "Eintritt frei" automatisch!
     }
     if ((vvk != null && vvk.isNotEmpty) && (ak != null && ak.isNotEmpty)) {
       return "VVK: $vvk / AK: $ak";
@@ -29,19 +35,19 @@ class _MobilTourCardState extends State<MobilTourCard> {
   @override
   Widget build(BuildContext context) {
     final show = widget.show;
-    final event = (show['event'] as String?)?.trim() ?? 'Unbenanntes Event';
-    final dateStr = show['date'] as String? ?? '';
-    final timeStr = (show['time'] as String?)?.trim() ?? '';
-    final city = (show['city'] as String?)?.trim() ?? '';
-    final venue = (show['venue'] as String?)?.trim() ?? '';
-    final advance = (show['advance'] as String?)?.trim();
-    final before = (show['before'] as String?)?.trim();
-    final ticketUrl = (show['url'] as String?)?.trim() ?? '';
-    final eventLink = (show['eventlink'] as String?)?.trim() ?? '';
-    final organizer = (show['organizer'] as String?)?.trim();
-    final organizerStreet = (show['organizer_street'] as String?)?.trim();
-    final organizerCity = (show['organizer_city'] as String?)?.trim();
-    final subtitle = (show['subtitle'] as String?)?.trim();
+    final event = safeString(show['event'], fallback: 'Unbenanntes Event');
+    final dateStr = safeString(show['date']);
+    final timeStr = safeString(show['time']);
+    final city = safeString(show['city']);
+    final venue = safeString(show['venue']);
+    final advance = safeString(show['advance']);
+    final before = safeString(show['before']);
+    final ticketUrl = safeString(show['url']);
+    final eventLink = safeString(show['eventlink']);
+    final organizer = safeString(show['organizer']);
+    final organizerStreet = safeString(show['organizer_street']);
+    final organizerCity = safeString(show['organizer_city']);
+    final subtitle = safeString(show['subtitle']);
 
     String formattedDate = dateStr;
     if (dateStr.isNotEmpty) {
@@ -54,8 +60,8 @@ class _MobilTourCardState extends State<MobilTourCard> {
     final formattedTime = timeStr.isNotEmpty ? '$timeStr Uhr' : '';
 
     final priceLines = <String>[];
-    if (advance?.isNotEmpty ?? false) priceLines.add('VVK: ${advance!}');
-    if (before?.isNotEmpty ?? false) priceLines.add('AK: ${before!}');
+    if (advance.isNotEmpty) priceLines.add('VVK: $advance');
+    if (before.isNotEmpty) priceLines.add('AK: $before');
 
     // Immer aufklappbar, also immer Pfeil anzeigen
     Widget right = Column(
@@ -116,7 +122,7 @@ class _MobilTourCardState extends State<MobilTourCard> {
                     alignment: Alignment.centerLeft,
                     child: GigShareButton(
                       eventTitle: event,
-                      subtitle: subtitle,
+                      subtitle: subtitle.isNotEmpty ? subtitle : null,
                       date: formattedTime.isNotEmpty
                           ? '$formattedDate – $formattedTime'
                           : formattedDate,
@@ -127,10 +133,9 @@ class _MobilTourCardState extends State<MobilTourCard> {
                       priceInfo: _buildPriceInfo(advance, before),
                     ),
                   ),
-
                   const SizedBox(height: 12),
                   // 2. Subtitle
-                  if (subtitle != null && subtitle.isNotEmpty)
+                  if (subtitle.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6),
                       child: Text(
@@ -159,24 +164,24 @@ class _MobilTourCardState extends State<MobilTourCard> {
                       ),
                     ),
                   // 4. Adresse/Veranstalter
-                  if ((organizer != null && organizer.isNotEmpty) ||
-                      (organizerStreet != null && organizerStreet.isNotEmpty) ||
-                      (organizerCity != null && organizerCity.isNotEmpty)) ...[
-                    if (organizer != null && organizer.isNotEmpty)
+                  if (organizer.isNotEmpty ||
+                      organizerStreet.isNotEmpty ||
+                      organizerCity.isNotEmpty) ...[
+                    if (organizer.isNotEmpty)
                       Text(
                         organizer,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Colors.grey[600],
                         ),
                       ),
-                    if (organizerStreet != null && organizerStreet.isNotEmpty)
+                    if (organizerStreet.isNotEmpty)
                       Text(
                         organizerStreet,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Colors.grey[600],
                         ),
                       ),
-                    if (organizerCity != null && organizerCity.isNotEmpty)
+                    if (organizerCity.isNotEmpty)
                       Text(
                         organizerCity,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -215,7 +220,7 @@ class _MobilTourCardState extends State<MobilTourCard> {
     }
 
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

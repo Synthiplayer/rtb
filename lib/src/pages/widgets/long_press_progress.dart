@@ -1,13 +1,19 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
-/// Zeigt eine runde Fortschritts­anzeige über [child] beim langen Drücken.
-/// Wenn der Fortschritt (dauerSeconds) erreicht ist, wird [onLongPressComplete] getriggert.
+/// Zeigt eine runde Fortschrittsanzeige über [child], wenn der Nutzer lange drückt.
+/// Bei Erreichen des vollen Fortschritts (definiert durch [duration])
+/// wird [onLongPressComplete] ausgeführt.
 class LongPressProgress extends StatefulWidget {
+  /// Das Kind-Widget, über dem die Progress-Anzeige liegt.
   final Widget child;
+
+  /// Wird ausgeführt, wenn der Fortschritt komplett ist (langer Druck beendet).
   final VoidCallback onLongPressComplete;
+
+  /// Größe des Fortschrittsindikators.
   final double size;
+
+  /// Dauer, wie lange gedrückt werden muss.
   final Duration duration;
 
   const LongPressProgress({
@@ -25,13 +31,13 @@ class LongPressProgress extends StatefulWidget {
 class _LongPressProgressState extends State<LongPressProgress>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this, duration: widget.duration)
       ..addStatusListener((status) {
+        // Startet Callback, sobald Animation/Progress abgeschlossen ist
         if (status == AnimationStatus.completed) {
           widget.onLongPressComplete();
         }
@@ -40,16 +46,15 @@ class _LongPressProgressState extends State<LongPressProgress>
 
   @override
   void dispose() {
-    _timer?.cancel();
     _controller.dispose();
     super.dispose();
   }
 
-  void _onTapDown(_) {
+  void _onTapDown(TapDownDetails _) {
     _controller.forward();
   }
 
-  void _onTapUp(_) {
+  void _onTapUp(TapUpDetails _) {
     _controller.reverse();
   }
 
@@ -67,7 +72,7 @@ class _LongPressProgressState extends State<LongPressProgress>
         alignment: Alignment.center,
         children: [
           widget.child,
-          // the progress indicator
+          // Fortschrittsanzeige (sichtbar während des langen Drückens)
           SizedBox(
             width: widget.size,
             height: widget.size,

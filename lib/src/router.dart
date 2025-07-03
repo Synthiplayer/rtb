@@ -29,10 +29,7 @@ final GoRouter appRouter = GoRouter(
       path: '/references',
       builder: (ctx, state) => const ReferencesPage(),
     ),
-    GoRoute(
-      path: '/media',
-      builder: (ctx, state) => const MediaDetailPage(),
-    ), // <--- Hinzufügen!
+    GoRoute(path: '/media', builder: (ctx, state) => const MediaDetailPage()),
     GoRoute(
       path: '/member/:index',
       builder: (ctx, state) {

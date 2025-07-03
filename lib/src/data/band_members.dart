@@ -2,7 +2,9 @@
 import '../models/band_model.dart';
 import 'member_descriptions.dart';
 
-/// Liste aller Bandmitglieder und der Band selbst als erster Eintrag.
+/// Enthält die Liste aller Bandmitglieder.
+/// Das erste Element repräsentiert die komplette Band.
+/// Wird u.a. von BandSection und Member-Detailseiten genutzt.
 final List<BandMember> bandMembers = [
   BandMember(
     name: 'Ragtag Birds',

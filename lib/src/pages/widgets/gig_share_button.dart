@@ -2,11 +2,10 @@ import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
-
 import 'event_share_pic.dart';
 import '../../ui/app_colors.dart';
 
-// Interop zu JS (web/index.html muss wie gehabt die Funktion exportieren!)
+/// Interop zu JS: Ruft die im Web (index.html) bereitgestellte Funktion `shareImageWeb` auf.
 @JS('shareImageWeb')
 external JSAny? _shareImageWeb(
   JSUint8Array bytes,
@@ -14,11 +13,15 @@ external JSAny? _shareImageWeb(
   String text,
 );
 
+/// Wrapper, um ein Bild per Web-JS zu teilen.
 void shareImageWeb(Uint8List bytes, String filename, String text) {
   final jsBytes = bytes.toJS;
   _shareImageWeb(jsBytes, filename, text);
 }
 
+/// Button zum Teilen eines Eventbildes als Sharepic.
+/// Nimmt die Veranstaltungsdaten entgegen, erstellt ein Sharepic,
+/// macht einen Screenshot davon und ruft dann den Web-Share-Dialog.
 class GigShareButton extends StatelessWidget {
   final String eventTitle;
   final String? subtitle;
@@ -38,12 +41,14 @@ class GigShareButton extends StatelessWidget {
   Future<void> _doShare(BuildContext context) async {
     final screenshotController = ScreenshotController();
 
+    // Zeigt einen Lade-Indikator
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (_) => const Center(child: CircularProgressIndicator()),
     );
 
+    // Unsichtbares Widget zur Screenshot-Erstellung
     final sharePicWidget = Positioned(
       top: -10000,
       left: 0,
@@ -72,11 +77,15 @@ class GigShareButton extends StatelessWidget {
     final imageBytes = await screenshotController.capture();
 
     overlayEntry.remove();
-    Navigator.of(context).pop();
+
+    // Dialog schließen, aber nur wenn Context noch gültig ist
+    if (context.mounted) {
+      Navigator.of(context).pop();
+    }
 
     if (imageBytes != null) {
       shareImageWeb(imageBytes, 'sharepic.png', 'Ragtag Birds live!');
-    } else {
+    } else if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Bild konnte nicht erstellt werden.")),
       );

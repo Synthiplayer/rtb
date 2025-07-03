@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'long_press_progress.dart';
 
+/// Teaser-Bereich für die Media-Seite mit Long-Press-Navigation.
+/// Zeigt Bild und Hinweistext an. Langer Druck öffnet die Detailseite.
 class MediaSection extends StatelessWidget {
   const MediaSection({super.key});
 
@@ -12,6 +14,7 @@ class MediaSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        // Überschrift & Hinweistext
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
           child: Column(
@@ -40,11 +43,12 @@ class MediaSection extends StatelessWidget {
 
         const SizedBox(height: 8),
 
-        // Achtung: hier Go statt Push verwenden
+        // Bildkarte, die bei langem Druck zur Media-Detailseite führt
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: LongPressProgress(
             onLongPressComplete: () {
+              // Navigiert zur Media-Detailseite
               GoRouter.of(context).push('/media');
             },
             child: Card(

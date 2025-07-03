@@ -3,17 +3,19 @@ import '../../components/band_videos_gallery.dart';
 import '../../components/band_drawer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+/// Medien-Seite: Zeigt Video-Galerie + Streaming-Links.
 class MediaDetailPage extends StatelessWidget {
   const MediaDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Prüft, ob eine Rücknavigation im Navigator-Stack möglich ist
+    final canPop = Navigator.of(context).canPop();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Medien'),
-        leading: Navigator.of(context).canPop()
-            ? BackButton()
-            : null, // Nur anzeigen, wenn möglich
+        leading: canPop ? const BackButton() : null,
       ),
       drawer: const BandDrawer(),
       body: SingleChildScrollView(
@@ -63,6 +65,7 @@ class MediaDetailPage extends StatelessWidget {
   }
 }
 
+/// Einzelner Streaming-Link-Button.
 class _StreamLink extends StatelessWidget {
   final String label;
   final String url;

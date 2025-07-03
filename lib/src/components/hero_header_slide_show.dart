@@ -57,7 +57,7 @@ class _HeroHeaderSlideshowState extends State<HeroHeaderSlideshow> {
             Image.asset(
               _images[_currentIndex],
               fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(color: Colors.red),
+              errorBuilder: (_, _, _) => Container(color: Colors.red),
             ),
 
             // Dunkles Overlay

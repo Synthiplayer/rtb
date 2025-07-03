@@ -7,6 +7,7 @@ import '../widgets/media_section.dart';
 import '../widgets/spotify_section.dart';
 import '../widgets/tour_section.dart';
 
+/// Startseite-Inhalt: Header, Tourdaten, Bandvorstellung, Media & Spotify.
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
@@ -16,28 +17,28 @@ class HomeBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
+          // Oben: Hero-Slideshow mit Bandbildern
           HeroHeaderSlideshow(),
           SizedBox(height: 16),
-          // ⇩ TourSection direkt unter dem Header ⇩
+
+          // Tourdaten/Live-Termine direkt unter dem Header
           TourSection(),
           SizedBox(height: 32),
 
-          // Erst die Band-Section (statt Spotify zuerst)
+          // Band-Mitglieder horizontal scrollbar
           BandSection(),
           SizedBox(height: 32),
 
-          //media sektion youtube etc
+          // Video-Galerie/Media-Section (YouTube, etc.)
           MediaSection(),
           SizedBox(height: 32),
 
-          // Dann Spotify
+          // Spotify-Player zum Reinhören
           SpotifySection(
             spotifyUrl:
                 'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
           ),
           SizedBox(height: 32),
-
-          // (Hier könntest du später TourSection hinzufügen)
         ],
       ),
     );

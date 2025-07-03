@@ -1,3 +1,4 @@
+//video model
 class BandVideo {
   final String id;
   final String title;

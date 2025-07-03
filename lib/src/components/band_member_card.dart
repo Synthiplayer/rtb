@@ -1,10 +1,10 @@
-// lib/src/components/band_member_card.dart
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/band_model.dart';
 
 /// Kompakte Card (240×320) für ein Bandmitglied oder die Band.
+/// Zeigt Bild, Name, Rolle und Social Icons an.
 class BandMemberCard extends StatelessWidget {
   final BandMember member;
   final VoidCallback? onLongPress;
@@ -25,7 +25,7 @@ class BandMemberCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Bild mit Gradient
+            // Portrait mit dunklem Verlauf am unteren Rand
             Expanded(
               child: AspectRatio(
                 aspectRatio: 1,
@@ -33,6 +33,7 @@ class BandMemberCard extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     Image.asset(member.imageAsset, fit: BoxFit.cover),
+                    // Dunkler Gradient am unteren Rand für Lesbarkeit
                     Positioned.fill(
                       child: DecoratedBox(
                         decoration: BoxDecoration(
@@ -41,7 +42,7 @@ class BandMemberCard extends StatelessWidget {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.black.withAlpha(89),
+                              Colors.black.withAlpha((0.35 * 255).round()),
                             ],
                           ),
                         ),
@@ -65,6 +66,7 @@ class BandMemberCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
+            // Social-Icons in einer Reihe (falls vorhanden)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -84,7 +86,7 @@ class BandMemberCard extends StatelessWidget {
   }
 }
 
-// Ein einzelnes Social-Icon mit URL-Launcher
+/// Ein einzelnes Social-Icon mit URL-Launcher
 class _SocialIcon extends StatelessWidget {
   final IconData icon;
   final Uri url;
@@ -96,8 +98,9 @@ class _SocialIcon extends StatelessWidget {
     padding: EdgeInsets.zero,
     onPressed: () async {
       if (await canLaunchUrl(url)) {
-        launchUrl(url, mode: LaunchMode.externalApplication);
+        await launchUrl(url, mode: LaunchMode.externalApplication);
       }
     },
+    tooltip: url.toString(),
   );
 }

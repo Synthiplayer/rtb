@@ -1,7 +1,9 @@
-// File: lib/src/components/band_app_bar.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+/// AppBar für die Ragtag Birds Web-App.
+/// - Zeigt links ein Menü-Icon (Mobile) oder ein großes Branding (Desktop)
+/// - Navigation per Button (Desktop) oder Drawer (Mobile)
 class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showDrawer;
   const BandAppBar({super.key, this.showDrawer = false});
@@ -11,10 +13,13 @@ class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Breakpoint kann projektweit gesetzt werden
     final isMobile = MediaQuery.of(context).size.width < 800;
 
     return AppBar(
+      // Breiteres "leading" für das Branding im Desktop
       leadingWidth: isMobile ? null : 180,
+      // Mobile: Burger-Icon, Desktop: Branding als TextButton
       leading: showDrawer
           ? Builder(
               builder: (ctx) => IconButton(
@@ -35,6 +40,7 @@ class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
+      // Mobile: App-Name in der Mitte antippbar, Desktop: kein Titel
       title: isMobile
           ? GestureDetector(
               onTap: () => context.go('/'),
@@ -49,6 +55,7 @@ class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : const SizedBox.shrink(),
       centerTitle: isMobile,
+      // Desktop: Navigationsbuttons
       actions: isMobile
           ? null
           : [
@@ -56,12 +63,13 @@ class BandAppBar extends StatelessWidget implements PreferredSizeWidget {
               _NavButton(label: 'Referenzen', route: '/references'),
               _NavButton(label: 'Booking', route: '/booking'),
               _NavButton(label: 'Impressum', route: '/impressum'),
-              const SizedBox(width: 18),
+              const SizedBox(width: 18), // etwas Abstand rechts
             ],
     );
   }
 }
 
+/// Navigation-Button für die AppBar (Desktop)
 class _NavButton extends StatelessWidget {
   final String label;
   final String route;

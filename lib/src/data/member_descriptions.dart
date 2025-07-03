@@ -1,6 +1,7 @@
 // lib/src/data/member_descriptions.dart
 
-/// Alle ausführlichen Beschreibungen der Band und ihrer Mitglieder.
+/// Enthält die langen Beschreibungen der Bandmitglieder.
+/// Wird z.B. für die Detailseiten angezeigt.
 class MemberDescriptions {
   static const ragtagBirds = '''
 Gegründet 2015 in Stade und veröffentlicht 2016 ihr Debütalbum "Rewind", das sofort die Musikwelt aufhorchen ließ.

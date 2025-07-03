@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/band_video.dart';
 import 'band_video_thumbnail.dart';
 
+/// Galerie ausgewählter Bandvideos mit Thumbnail-Preview & Player.
 class BandVideosGallery extends StatefulWidget {
   const BandVideosGallery({super.key});
 

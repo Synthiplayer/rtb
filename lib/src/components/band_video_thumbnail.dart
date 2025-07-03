@@ -1,10 +1,10 @@
-// lib/src/pages/widgets/band_video_thumbnail.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:web/web.dart' as web;
 import 'dart:ui_web' as ui;
 import 'package:url_launcher/url_launcher_string.dart';
 
+/// Zeigt ein Video-Thumbnail mit YouTube-Player (Web) oder Link-Button (Mobile).
 class BandVideoThumbnail extends StatelessWidget {
   final String videoId;
   final String title;
@@ -23,23 +23,26 @@ class BandVideoThumbnail extends StatelessWidget {
     required this.onClosePlayer,
   });
 
+  static final _registeredIframes = <String>{};
+
   @override
   Widget build(BuildContext context) {
     final thumbnailUrl = 'https://img.youtube.com/vi/$videoId/hqdefault.jpg';
     final iframeViewType = 'youtube-iframe-$videoId';
 
-    if (kIsWeb) {
+    // ViewFactory nur 1x pro videoId registrieren!
+    if (kIsWeb && !_registeredIframes.contains(iframeViewType)) {
       // ignore: undefined_prefixed_name
       ui.platformViewRegistry.registerViewFactory(iframeViewType, (int viewId) {
         final iframe = web.HTMLIFrameElement()
           ..width = '560'
           ..height = '315'
-          ..src =
-              'https://www.youtube.com/embed/$videoId?autoplay=1&mute=1' // Mute erzwingt Autoplay!
+          ..src = 'https://www.youtube.com/embed/$videoId?autoplay=1&mute=1'
           ..style.border = 'none'
           ..allowFullscreen = true;
         return iframe;
       });
+      _registeredIframes.add(iframeViewType);
     }
 
     return Column(
@@ -50,7 +53,7 @@ class BandVideoThumbnail extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
           textAlign: TextAlign.center,
         ),
-        if (description != null)
+        if (description?.isNotEmpty == true)
           Padding(
             padding: const EdgeInsets.only(top: 4.0, bottom: 8),
             child: Text(

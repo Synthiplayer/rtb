@@ -1,7 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'tour_card.dart'; // Importiere das ausgelagerte Widget
+import 'tour_card.dart';
+
+/// Zeigt die nächsten Tourdaten als Liste.
+///
+/// Holt die Daten per HTTP von `/tour/tour.json` beim Start.
+/// Nutzt TourCard für die Darstellung einzelner Shows.
+/// Lädt das Hintergrundbild für die Teilen-Funktion vor.
 
 class TourSection extends StatefulWidget {
   const TourSection({super.key});
@@ -25,7 +31,6 @@ class _TourSectionState extends State<TourSection> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Das hier ist sicher, weil context nun verfügbar ist!
     if (!_bgPrecached) {
       precacheImage(
         const AssetImage('assets/images/sharepic_bg_v3.png'),

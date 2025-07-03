@@ -9,6 +9,10 @@ import 'package:photo_view/photo_view_gallery.dart';
 import '../components/band_drawer.dart';
 import '../components/responsive_scaffold.dart';
 
+/// Zeigt eine Galerie mit Band-Fotos als Gitter und lädt Bilder von der Server-API.
+///
+/// Beim Antippen öffnet sich ein Vollbild-Viewer (GalleryViewer).
+
 class GalleryPage extends StatefulWidget {
   const GalleryPage({super.key});
 
@@ -97,7 +101,11 @@ class _GalleryPageState extends State<GalleryPage> {
   }
 }
 
-// Die GalleryViewer bleibt wie sie ist!
+/// Vollbild-Galerie mit Blätterfunktion für Band-Fotos.
+///
+/// Wird von GalleryPage beim Antippen eines Bildes geöffnet.
+/// Desktop: Pfeile zum Blättern, mobil per Swipe.
+
 class GalleryViewer extends StatefulWidget {
   final List<String> images;
   final int initialIndex;

@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
+/// Zentrales Theme für die gesamte Band-Website.
+///
+/// Nutzt dunkle Farbtöne mit Akzentfarbe und angepasste Schriften.
+/// Die Überschriften verwenden 'Airstream', sonst 'Roboto' (Google Fonts).
+/// Alle zentralen Farben und Textstile sind in AppColors definiert.
+
 class AppTheme {
   static ThemeData get dark => ThemeData(
     brightness: Brightness.dark,
@@ -15,10 +21,10 @@ class AppTheme {
       surface: AppColors.surface,
     ),
     textTheme: GoogleFonts.robotoTextTheme().copyWith(
-      // Neue, helle Überschrift für Titel
+      // helle Überschrift für Titel
       titleLarge: const TextStyle(
         color: AppColors.text, // weiß
-        fontSize: 22, // oder deine Wunschgröße
+        fontSize: 22,
         fontWeight: FontWeight.bold, // optional
       ),
       titleMedium: const TextStyle(

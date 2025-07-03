@@ -5,6 +5,13 @@ import 'package:rtb/src/components/responsive_scaffold.dart';
 import 'package:rtb/src/components/band_drawer.dart';
 import 'package:rtb/src/ui/breakpoints.dart'; // für mobile Cutoff
 
+/// Zeigt eine Liste der wichtigsten Auftrittsorte (Venues) der Band.
+///
+/// Unterteilt in Top-Venues, Featured Venues und weitere Spielorte.
+/// Responsiv: Darstellung und Maximalbreite passen sich an Desktop/Mobile an.
+///
+/// Wird als eigene Seite ("/references") geroutet.
+
 class ReferencesPage extends StatelessWidget {
   const ReferencesPage({super.key});
 
@@ -35,7 +42,7 @@ class ReferencesPage extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final isMobile = width < Breakpoints.mobile;
 
-    // Helper: Bullet-List als Wrap
+    //  Bullet-List als Wrap
     Widget buildBulletList(List<String> items, TextStyle style) {
       return Wrap(
         alignment: WrapAlignment.center,

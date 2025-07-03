@@ -5,8 +5,7 @@ import '../models/band_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// Detail-Seite für ein Band-Mitglied oder die Band selbst,
-/// mit großem Bild oben und darunter eine Zeile mit Name, Rolle und Social-Icons.
+/// Detail-Seite für ein Band-Mitglied oder die Band selbst
 class DetailPage extends StatelessWidget {
   final BandMember member;
   const DetailPage({super.key, required this.member});
@@ -29,7 +28,6 @@ class DetailPage extends StatelessWidget {
             ),
           ),
 
-          // Abstand zwischen Bild und Zeile
           const SizedBox(height: 16),
 
           // Eine Zeile: Name | Rolle | Icons

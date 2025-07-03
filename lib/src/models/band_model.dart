@@ -6,16 +6,16 @@ class BandMember {
   /// Anzeigename, z. B. "Tina" oder "Max".
   final String name;
 
-  /// Kurze Rollenbezeichnung (Vocals, Guitar, Drums …).
+  /// Kurze Rollenbezeichnung (z. B. "Vocals", "Guitar", "Drums").
   final String role;
 
   /// Asset-Pfad zum Porträtfoto (in pubspec.yaml registriert).
   final String imageAsset;
 
-  /// Optionaler Instagram-Link.
+  /// Optionaler Instagram-Link (z. B. https://instagram.com/…).
   final Uri? instagramUrl;
 
-  /// Optionaler Facebook-Link.
+  /// Optionaler Facebook-Link (z. B. https://facebook.com/…).
   final Uri? facebookUrl;
 
   /// Optionaler Mail-Link (mailto:…). Praktisch für Booking-Anfragen.
@@ -24,6 +24,7 @@ class BandMember {
   /// Freier Text, z. B. Band-History oder persönliche Biografie.
   final String? description;
 
+  /// Erstellt ein [BandMember]-Objekt.
   const BandMember({
     required this.name,
     required this.role,
@@ -39,10 +40,10 @@ class BandMember {
       instagramUrl != null || facebookUrl != null || emailUrl != null;
 
   // --------------------------------------------------------------------------
-  // Convenience: (De-)Serialisierung, damit wir die Mitglieder später auch
-  // aus JSON oder einer CMS-API laden können.
+  // Hilfsfunktionen für JSON: Damit lassen sich Bandmitglieder speichern und laden.
   // --------------------------------------------------------------------------
 
+  /// Erstellt ein [BandMember] aus einer JSON-Map.
   factory BandMember.fromJson(Map<String, dynamic> json) => BandMember(
     name: json['name'] as String,
     role: json['role'] as String? ?? '',
@@ -59,6 +60,7 @@ class BandMember {
     description: json['description'] as String?,
   );
 
+  /// Konvertiert das [BandMember] in eine JSON-Map.
   Map<String, dynamic> toJson() => {
     'name': name,
     'role': role,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// Ein Widget, das ab einer definierten Breite zwischen Mobile- und Desktop-Layout wechselt.
 class ResponsiveLayout extends StatelessWidget {
-  /// Grenze für „Mobile“ (alles darunter) vs. „Desktop“ (alles darüber)
+  // Grenze für „Mobile“ (alles darunter) vs. „Desktop“ (alles darüber)
   static const mobileMaxWidth = 1024.0;
 
   final Widget mobile;

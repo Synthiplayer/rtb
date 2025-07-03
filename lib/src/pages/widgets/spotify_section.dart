@@ -4,6 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:web/web.dart' as web;
 
+/// Zeigt einen Spotify-Embed-Player als Section auf der Webseite.
+///
+/// Akzeptiert eine Spotify-URL und wandelt sie ggf. in die Embed-Variante um.
+/// Wird nur im Web angezeigt (kein Widget auf Mobil/Flutter Desktop).
+
 /// Wandelt eine Spotify-URL in ihre Embed-Variante um
 String toSpotifyEmbed(String url) {
   final uri = Uri.parse(url);
