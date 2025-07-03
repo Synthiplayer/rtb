@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'long_press_progress.dart';
-import 'media_detail_page.dart';
 
 class MediaSection extends StatelessWidget {
   const MediaSection({super.key});
