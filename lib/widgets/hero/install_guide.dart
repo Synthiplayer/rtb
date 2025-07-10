@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rtb/widgets/hero/pwa_install_info.dart';
 
 class InstallGuideDialog extends StatefulWidget {
@@ -15,12 +14,11 @@ class _InstallGuideDialogState extends State<InstallGuideDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      // 👉 explizit Roboto
+      // Thema-Textstyle nutzen, z.B. titleLarge
       title: Text(
         'Als App hinzufügen',
-        style: GoogleFonts.roboto(
-          textStyle: Theme.of(context).textTheme.titleLarge,
-          fontWeight: FontWeight.w600, // falls du’s etwas fetter willst
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w600, // falls etwas fetter gewünscht
         ),
       ),
       content: PwaInstallInfo(

@@ -221,12 +221,11 @@ class _HeroHeaderSlideshowState extends ConsumerState<HeroHeaderSlideshow>
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text(
+        title: Text(
           'News & Events',
-          style: TextStyle(
-            fontFamily: 'Roboto',
+          style: Theme.of(ctx).textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w600,
-            fontSize: 20,
+            fontSize: 20, // falls du die Größe explizit möchtest
           ),
         ),
         content: const NewsWidget(),

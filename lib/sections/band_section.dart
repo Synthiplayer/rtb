@@ -75,7 +75,7 @@ class _BandSectionState extends State<BandSection> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-              // Kurze Anweisung (Roboto)
+              // Kurze Anweisung (themeschrift)
               Text(
                 'Für Info Bild gedrückt halten',
                 style: Theme.of(context).textTheme.bodyMedium,

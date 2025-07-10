@@ -1,14 +1,12 @@
-// File: lib/src/pages/references_page.dart
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rtb/widgets/responsive_scaffold.dart';
 import 'package:rtb/widgets/band_drawer.dart';
 import 'package:rtb/ui/breakpoints.dart';
+import 'package:rtb/pages/app_text.dart'; // <- zentrale Textstyles
 
 class ReferencesPage extends StatelessWidget {
   const ReferencesPage({super.key});
 
-  // Festival-Bullet-List für die weiteren Spielorte
   Widget festivalBulletList(
     List<String> venues,
     TextStyle style, {
@@ -45,7 +43,6 @@ class ReferencesPage extends StatelessWidget {
     );
   }
 
-  // Schöne Eintrag-Listen mit Eintrag pro Zeile (zentriert, kein Bullet)
   Widget venueColumn(
     List<String> venues,
     TextStyle style, {
@@ -83,62 +80,35 @@ class ReferencesPage extends StatelessWidget {
       "Harley-Casting-Show Jork",
     ];
 
-    final theme = Theme.of(context).textTheme;
     final width = MediaQuery.of(context).size.width;
     final isMobile = width < Breakpoints.mobile;
 
-    // Styles
-    final topStyle = GoogleFonts.roboto(
-      fontSize: isMobile ? 32 : 32,
-      fontWeight: FontWeight.w800,
-      height: 1.16,
-      letterSpacing: 0.2,
-    );
-    final featuredStyle = GoogleFonts.roboto(
-      fontSize: isMobile ? 20 : 22,
-      fontWeight: FontWeight.w700,
-      height: 1.17,
-    );
-    final listStyle = GoogleFonts.roboto(
-      fontSize: isMobile ? 15 : 16,
-      fontWeight: FontWeight.w500,
-      height: 1.18,
-    );
+    final topStyle = AppText.topVenue(isMobile: isMobile);
+    final featuredStyle = AppText.featuredVenue(isMobile: isMobile);
+    final listStyle = AppText.listVenue(isMobile: isMobile);
+    final sectionTitleStyle = AppText.sectionTitle(isMobile: isMobile);
+    final otherTitleStyle = AppText.otherTitle(isMobile: isMobile);
+    final footerStyle = AppText.footerText();
 
-    // Content-Column
     Widget content = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           'Spielorte',
-          style: theme.headlineLarge?.copyWith(
-            fontSize: isMobile ? 46 : 56,
-            fontFamily: 'Airstream',
-          ),
+          style: sectionTitleStyle,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 26),
-
-        // Top Venues: je Zeile, ohne Bullet
         venueColumn(topVenues, topStyle, verticalSpacing: 20),
         const SizedBox(height: 40),
-
-        // Featured Venues: je Zeile, ohne Bullet
         venueColumn(featuredVenues, featuredStyle, verticalSpacing: 10),
         const SizedBox(height: 40),
-
-        // Überschrift weitere
         Text(
           'Weitere Spielorte',
-          style: GoogleFonts.roboto(
-            fontSize: theme.titleMedium?.fontSize ?? (isMobile ? 16 : 18),
-            fontWeight: FontWeight.w700,
-          ),
+          style: otherTitleStyle,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 20),
-
-        // Restliche Venues: Festival-Bullets
         festivalBulletList(
           venueList,
           listStyle,
@@ -146,16 +116,10 @@ class ReferencesPage extends StatelessWidget {
           runSpacing: 9,
         ),
         const SizedBox(height: 30),
-
-        Text(
-          '… u. v. m.',
-          style: GoogleFonts.roboto(fontSize: 12, fontStyle: FontStyle.italic),
-          textAlign: TextAlign.center,
-        ),
+        Text('… u. v. m.', style: footerStyle, textAlign: TextAlign.center),
       ],
     );
 
-    // Desktop: Max-Width
     if (!isMobile) {
       content = Center(
         child: ConstrainedBox(

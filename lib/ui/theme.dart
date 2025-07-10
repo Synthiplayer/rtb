@@ -1,16 +1,18 @@
-// lib/ui/theme.dart
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppTheme {
   static ThemeData get dark {
     final base = ThemeData.dark();
 
-    // 1) Nunito Sans als Default-Font
-    final nunito = GoogleFonts.nunitoSansTextTheme(base.textTheme);
+    // TextTheme mit lokaler 'NunitoSans' Familie
+    final nunitoTextTheme = base.textTheme.apply(
+      fontFamily: 'NunitoSans',
+      bodyColor: AppColors.text,
+      displayColor: AppColors.text,
+    );
 
-    // 2) Airstream nur für Headlines
+    // Airstream nur für Headlines (lokal eingebunden)
     TextStyle airstream(double size) => TextStyle(
       fontFamily: 'Airstream',
       fontSize: size,
@@ -26,14 +28,14 @@ class AppTheme {
       ),
 
       // ---------- TextTheme ----------
-      textTheme: nunito.copyWith(
+      textTheme: nunitoTextTheme.copyWith(
         headlineLarge: airstream(48),
         headlineMedium: airstream(36),
         headlineSmall: airstream(28),
-        // Body-Styles bleiben Nunito Sans
-        bodyLarge: nunito.bodyLarge,
-        bodyMedium: nunito.bodyMedium,
-        labelLarge: nunito.labelLarge?.copyWith(color: AppColors.fadedText),
+        // Body-Styles sind Nunito Sans mit Farbe aus base.textTheme
+        labelLarge: nunitoTextTheme.labelLarge?.copyWith(
+          color: AppColors.fadedText,
+        ),
       ),
 
       // ---------- AppBar ----------

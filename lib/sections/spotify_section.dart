@@ -50,7 +50,6 @@ class SpotifySection extends StatelessWidget {
             ),
           ),
 
-          // Untertitel in Roboto
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Text(
