@@ -66,7 +66,7 @@ class _NewsWidgetState extends State<NewsWidget> {
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: _news!.length,
-        separatorBuilder: (_, _) => const Divider(),
+        separatorBuilder: (_, __) => const Divider(),
         itemBuilder: (ctx, i) {
           final item = _news![i] as Map<String, dynamic>;
           final imageUrl = item['image'] as String? ?? '';
@@ -77,59 +77,78 @@ class _NewsWidgetState extends State<NewsWidget> {
           final link = item['link'] as String? ?? '';
           final tags = (item['tags'] as List?)?.cast<String>() ?? [];
 
-          return ListTile(
-            leading: imageUrl.isNotEmpty
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Image.network(
-                      imageUrl,
-                      width: 48,
-                      height: 48,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, _, _) =>
-                          const Icon(Icons.image_not_supported, size: 32),
-                    ),
-                  )
-                : null,
-            title: Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
-            subtitle: Column(
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (date.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 2),
-                    child: Text(
-                      date,
-                      style: TextStyle(color: Colors.grey[600], fontSize: 13),
-                    ),
+                // Titel
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 17,
                   ),
-                if (author.isNotEmpty)
+                ),
+                // Datum und Autor
+                Row(
+                  children: [
+                    if (date.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Text(
+                          date,
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    if (author.isNotEmpty)
+                      Text(
+                        'von $author',
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                  ],
+                ),
+                // Bild (wenn vorhanden)
+                if (imageUrl.isNotEmpty)
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 2),
-                    child: Text(
-                      'von $author',
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
-                        fontStyle: FontStyle.italic,
+                    padding: const EdgeInsets.only(top: 10, bottom: 8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        imageUrl,
+                        width: double.infinity,
+                        height: 160,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) =>
+                            const Icon(Icons.image_not_supported, size: 48),
                       ),
                     ),
                   ),
+                // Inhalt
                 if (content.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 4),
                     child: Text(content, style: const TextStyle(fontSize: 15)),
                   ),
+                // Tags
                 if (tags.isNotEmpty)
-                  Wrap(
-                    spacing: 4,
-                    children: tags
-                        .map((tag) => Chip(label: Text(tag)))
-                        .toList(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Wrap(
+                      spacing: 4,
+                      children: tags
+                          .map((tag) => Chip(label: Text(tag)))
+                          .toList(),
+                    ),
                   ),
+                // Link
                 if (link.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(top: 6.0),
