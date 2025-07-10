@@ -89,7 +89,7 @@ class _NewsIconWidgetState extends State<NewsIconWidget>
     await showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('News & Events'),
+        title: const Text('News'), // Statt 'News & Events'
         content: const NewsWidget(),
         actions: [
           TextButton(
