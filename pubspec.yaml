@@ -27,6 +27,8 @@ dependencies:
   screenshot: ^3.0.0
   flutter_js: ^0.8.3
   web: ^1.1.1
+  shared_preferences: ^2.5.3
+  crypto: ^3.0.6
 
   # Google Fonts
   google_fonts: ^5.0.0

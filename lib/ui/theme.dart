@@ -1,70 +1,47 @@
-// lib/src/ui/theme.dart
-
+// lib/ui/theme.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
-/// Zentrales Theme für die gesamte Band-Website.
-///
-/// Nutzt dunkle Farbtöne mit Akzentfarbe und angepasste Schriften.
-/// Die Überschriften verwenden 'Airstream', sonst 'Roboto' (Google Fonts).
-/// Alle zentralen Farben und Textstile sind in AppColors definiert.
-
 class AppTheme {
-  static ThemeData get dark => ThemeData(
-    brightness: Brightness.dark,
-    scaffoldBackgroundColor: AppColors.surface,
-    primaryColor: AppColors.accent,
-    colorScheme: const ColorScheme.dark().copyWith(
-      primary: AppColors.accent,
-      secondary: AppColors.text,
-      surface: AppColors.surface,
-    ),
-    textTheme: GoogleFonts.robotoTextTheme().copyWith(
-      // helle Überschrift für Titel
-      titleLarge: const TextStyle(
-        color: AppColors.text, // weiß
-        fontSize: 22,
-        fontWeight: FontWeight.bold, // optional
+  static ThemeData get dark {
+    final base = ThemeData.dark();
+
+    // 1) Nunito Sans als Default-Font
+    final nunito = GoogleFonts.nunitoSansTextTheme(base.textTheme);
+
+    // 2) Airstream nur für Headlines
+    TextStyle airstream(double size) => TextStyle(
+      fontFamily: 'Airstream',
+      fontSize: size,
+      fontWeight: FontWeight.bold,
+      color: AppColors.text,
+    );
+
+    return base.copyWith(
+      scaffoldBackgroundColor: AppColors.surface,
+      colorScheme: base.colorScheme.copyWith(
+        primary: AppColors.accent,
+        surface: AppColors.surface,
       ),
-      titleMedium: const TextStyle(
-        color: AppColors.text,
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
+
+      // ---------- TextTheme ----------
+      textTheme: nunito.copyWith(
+        headlineLarge: airstream(48),
+        headlineMedium: airstream(36),
+        headlineSmall: airstream(28),
+        // Body-Styles bleiben Nunito Sans
+        bodyLarge: nunito.bodyLarge,
+        bodyMedium: nunito.bodyMedium,
+        labelLarge: nunito.labelLarge?.copyWith(color: AppColors.fadedText),
       ),
-      bodyMedium: const TextStyle(color: AppColors.text),
-      headlineLarge: const TextStyle(
-        fontFamily: 'Airstream',
-        fontSize: 48,
-        fontWeight: FontWeight.bold,
-        color: AppColors.text,
+
+      // ---------- AppBar ----------
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.surface,
+        elevation: 0,
+        centerTitle: true,
       ),
-      headlineMedium: const TextStyle(
-        fontFamily: 'Airstream',
-        fontSize: 36,
-        fontWeight: FontWeight.bold,
-        color: AppColors.text,
-      ),
-      headlineSmall: const TextStyle(
-        fontFamily: 'Airstream',
-        fontSize: 24,
-        fontWeight: FontWeight.w600,
-        color: AppColors.text,
-      ),
-      labelMedium: const TextStyle(color: AppColors.fadedText),
-    ),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.surface,
-      elevation: 0,
-      centerTitle: true,
-      titleTextStyle: TextStyle(
-        color: AppColors.text,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    cardColor: AppColors.surface,
-    dividerColor: AppColors.fadedText,
-    iconTheme: const IconThemeData(color: AppColors.text),
-  );
+    );
+  }
 }

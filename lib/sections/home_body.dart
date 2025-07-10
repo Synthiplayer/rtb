@@ -1,7 +1,7 @@
 // lib/src/pages/home/home_body.dart
 
 import 'package:flutter/material.dart';
-import '../widgets/hero_header_slide_show.dart';
+import '../widgets/hero/hero_header_slide_show.dart';
 import 'band_section.dart';
 import 'media_section.dart';
 import 'spotify_section.dart';
