@@ -1,4 +1,5 @@
 // lib/src/pages/gallery/gallery_page.dart
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +10,9 @@ import '../widgets/band_drawer.dart';
 import '../widgets/responsive_scaffold.dart';
 
 /// Zeigt eine Galerie mit Band-Fotos als Gitter und lädt Bilder von der Server-API.
+///
 /// Beim Antippen öffnet sich ein Vollbild-Viewer (GalleryViewer).
+
 class GalleryPage extends StatefulWidget {
   const GalleryPage({super.key});
 
@@ -61,51 +64,16 @@ class _GalleryPageState extends State<GalleryPage> {
   Widget build(BuildContext context) {
     if (_loading) {
       return const ResponsiveScaffold(
-        drawer: BandDrawer(),
         body: Center(child: CircularProgressIndicator()),
+        drawer: BandDrawer(),
       );
     }
-
     if (_error != null) {
       return ResponsiveScaffold(
+        body: Center(child: Text('$_error')),
         drawer: const BandDrawer(),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.cloud_off,
-                size: 64,
-                color: Theme.of(context).colorScheme.onSurface.withAlpha(
-                  153,
-                ), // statt withOpacity(0.6)
-              ),
-
-              const SizedBox(height: 16),
-              Text(
-                'Leider konnte keine Verbindung zum Internet hergestellt werden.\n'
-                'Die Galerie ist momentan nicht verfügbar.',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _loading = true;
-                    _error = null;
-                  });
-                  _loadGallery();
-                },
-                icon: const Icon(Icons.refresh),
-                label: const Text('Erneut versuchen'),
-              ),
-            ],
-          ),
-        ),
       );
     }
-
     return ResponsiveScaffold(
       drawer: const BandDrawer(),
       body: Padding(
@@ -134,7 +102,10 @@ class _GalleryPageState extends State<GalleryPage> {
 }
 
 /// Vollbild-Galerie mit Blätterfunktion für Band-Fotos.
+///
+/// Wird von GalleryPage beim Antippen eines Bildes geöffnet.
 /// Desktop: Pfeile zum Blättern, mobil per Swipe.
+
 class GalleryViewer extends StatefulWidget {
   final List<String> images;
   final int initialIndex;
