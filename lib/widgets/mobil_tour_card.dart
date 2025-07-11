@@ -1,7 +1,14 @@
+// mobil_tour_card.dart
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'gig_share_button.dart';
+
+/// Gibt einen bereinigten String zurück, oder einen Fallback ("" oder null).
+String safeString(dynamic value, {String fallback = ''}) {
+  if (value is String) return value.trim();
+  return fallback;
+}
 
 class MobilTourCard extends StatefulWidget {
   final Map<String, dynamic> show;
@@ -11,24 +18,18 @@ class MobilTourCard extends StatefulWidget {
   State<MobilTourCard> createState() => _MobilTourCardState();
 }
 
-/// Gibt einen bereinigten String zurück, oder einen Fallback ("" oder null).
-String safeString(dynamic value, {String fallback = ''}) {
-  if (value is String) return value.trim();
-  return fallback;
-}
-
 class _MobilTourCardState extends State<MobilTourCard> {
   bool _expanded = false;
 
   String? _buildPriceInfo(String? vvk, String? ak) {
     if ((vvk == null || vvk.isEmpty) && (ak == null || ak.isEmpty)) {
-      return null; // Nicht "Eintritt frei" automatisch!
+      return null;
     }
-    if ((vvk != null && vvk.isNotEmpty) && (ak != null && ak.isNotEmpty)) {
+    if ((vvk?.isNotEmpty == true) && (ak?.isNotEmpty == true)) {
       return "VVK: $vvk / AK: $ak";
     }
-    if (vvk != null && vvk.isNotEmpty) return "VVK: $vvk";
-    if (ak != null && ak.isNotEmpty) return "AK: $ak";
+    if (vvk?.isNotEmpty == true) return "VVK: $vvk";
+    if (ak?.isNotEmpty == true) return "AK: $ak";
     return null;
   }
 
@@ -49,13 +50,18 @@ class _MobilTourCardState extends State<MobilTourCard> {
     final organizerCity = safeString(show['organizer_city']);
     final subtitle = safeString(show['subtitle']);
 
-    String formattedDate = dateStr;
+    // Datum formatieren oder Fallback
+    String formattedDate;
     if (dateStr.isNotEmpty) {
       try {
         formattedDate = DateFormat(
           'dd.MM.yyyy',
         ).format(DateTime.parse(dateStr));
-      } catch (_) {}
+      } catch (_) {
+        formattedDate = 'Ungültiges Datum';
+      }
+    } else {
+      formattedDate = 'Datum unbekannt';
     }
     final formattedTime = timeStr.isNotEmpty ? '$timeStr Uhr' : '';
 
@@ -63,10 +69,8 @@ class _MobilTourCardState extends State<MobilTourCard> {
     if (advance.isNotEmpty) priceLines.add('VVK: $advance');
     if (before.isNotEmpty) priceLines.add('AK: $before');
 
-    // Immer aufklappbar, also immer Pfeil anzeigen
     Widget right = Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (ticketUrl.isNotEmpty)
           TextButton(
@@ -91,20 +95,22 @@ class _MobilTourCardState extends State<MobilTourCard> {
       ],
     );
 
-    // Unaufgeklappte linke Seite: Event, Datum/Uhrzeit, Ort
     final showDate = formattedTime.isNotEmpty
         ? '$formattedDate – $formattedTime'
         : formattedDate;
-
     final leftCol = <Widget>[
-      Text(event, style: Theme.of(context).textTheme.titleMedium),
+      Text(
+        event,
+        style: Theme.of(
+          context,
+        ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+      ),
       if (showDate.isNotEmpty)
         Text(showDate, style: Theme.of(context).textTheme.bodyMedium),
       if (city.isNotEmpty || venue.isNotEmpty)
         Text('$city, $venue', style: Theme.of(context).textTheme.bodyMedium),
     ];
 
-    // --- Expanded-Bereich ---
     Widget? expandedBlock;
     if (_expanded) {
       expandedBlock = Padding(
@@ -117,15 +123,12 @@ class _MobilTourCardState extends State<MobilTourCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1. Gig teilen (AppColors.accent)
                   Align(
                     alignment: Alignment.centerLeft,
                     child: GigShareButton(
                       eventTitle: event,
                       subtitle: subtitle.isNotEmpty ? subtitle : null,
-                      date: formattedTime.isNotEmpty
-                          ? '$formattedDate – $formattedTime'
-                          : formattedDate,
+                      date: showDate,
                       location: [
                         city,
                         venue,
@@ -134,18 +137,17 @@ class _MobilTourCardState extends State<MobilTourCard> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  // 2. Subtitle
                   if (subtitle.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6),
                       child: Text(
                         subtitle,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.grey[700],
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ),
-                  // 3. Eventlink (Textbutton)
                   if (eventLink.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4),
@@ -159,11 +161,13 @@ class _MobilTourCardState extends State<MobilTourCard> {
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                           alignment: Alignment.centerLeft,
-                          foregroundColor: Colors.blue[700],
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                          foregroundColor: Colors.blue,
                         ),
                       ),
                     ),
-                  // 4. Adresse/Veranstalter
                   if (organizer.isNotEmpty ||
                       organizerStreet.isNotEmpty ||
                       organizerCity.isNotEmpty) ...[
@@ -171,28 +175,30 @@ class _MobilTourCardState extends State<MobilTourCard> {
                       Text(
                         organizer,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     if (organizerStreet.isNotEmpty)
                       Text(
                         organizerStreet,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     if (organizerCity.isNotEmpty)
                       Text(
                         organizerCity,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                   ],
                 ],
               ),
             ),
-            // Rechte Seite: Preise rechtsbündig
             Expanded(
               flex: 1,
               child: priceLines.isNotEmpty
@@ -200,15 +206,17 @@ class _MobilTourCardState extends State<MobilTourCard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
+                        Text(
                           'Eintritt:',
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 8),
                         for (var l in priceLines)
                           Text(
                             l,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w500),
                           ),
                       ],
                     )
