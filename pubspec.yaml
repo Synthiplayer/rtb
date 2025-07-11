@@ -10,6 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_web_plugins:
+    sdk: flutter
+
   # UI & Routing
   go_router: ^15.2.0
   flutter_riverpod: ^2.6.1

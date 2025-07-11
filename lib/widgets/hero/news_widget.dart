@@ -66,7 +66,7 @@ class _NewsWidgetState extends State<NewsWidget> {
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: _news!.length,
-        separatorBuilder: (_, __) => const Divider(),
+        separatorBuilder: (_, _) => const Divider(),
         itemBuilder: (ctx, i) {
           final item = _news![i] as Map<String, dynamic>;
           final imageUrl = item['image'] as String? ?? '';
@@ -126,7 +126,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                         width: double.infinity,
                         height: 160,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) =>
+                        errorBuilder: (_, _, _) =>
                             const Icon(Icons.image_not_supported, size: 48),
                       ),
                     ),

@@ -23,7 +23,7 @@ class HeroSlideshowBackground extends StatelessWidget {
           Image.asset(
             images[currentIndex],
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => Container(color: Colors.red),
+            errorBuilder: (_, _, _) => Container(color: Colors.red),
           ),
           Container(color: Colors.black.withAlpha(140)),
         ],
