@@ -99,39 +99,46 @@ self.addEventListener("fetch", (event) => {
     key = '/';
   }
 
-  // Sonderfall: tourdaten.json network-first mit Benachrichtigung
-  if (url.pathname.endsWith('/tour/tourdaten.json')) {
-    event.respondWith(
-      fetch(event.request)
-        .then(networkResponse => {
-          // (deine Update-Logik bleibt hier unverändert)
+// -- tour.json network-first mit Cache-Update und Offline-Fallback --
+if (url.pathname.endsWith('/tour/tour.json')) {
+  event.respondWith(
+    fetch(event.request)
+      .then(networkResponse =>
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, networkResponse.clone());
           return networkResponse;
         })
-        .catch(() =>
-          caches.open(CACHE_NAME)
-            .then(cache => cache.match(event.request))
-            .then(cachedResp => {
-              if (cachedResp) return cachedResp;
-              return new Response('Service Unavailable', { status: 504 });
-            })
+      )
+      .catch(() =>
+        caches.open(CACHE_NAME).then(cache =>
+          cache.match(event.request).then(cachedResp =>
+            cachedResp ||
+              new Response('Service Unavailable', { status: 504 })
+          )
         )
-    );
-    return;
-  }
+      )
+  );
+  return;
+}
 
-  // Sonderfall: news.json network-first mit Fallback
+
+// -- news.json network-first mit Cache-Update und Offline-Fallback --
 if (url.pathname.endsWith('/news/news.json')) {
   event.respondWith(
     fetch(event.request)
-      .then(netResp =>
+      .then(networkResponse =>
         caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, netResp.clone());   // ✅ neu cachen
-          return netResp;
-        }))
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        })
+      )
       .catch(() =>
-        caches.open(CACHE_NAME)
-              .then(c => c.match(event.request))
-              .then(resp => resp ?? new Response('Service Unavailable', {status: 504}))
+        caches.open(CACHE_NAME).then(cache =>
+          cache.match(event.request).then(cachedResp =>
+            cachedResp ||
+              new Response('Service Unavailable', { status: 504 })
+          )
+        )
       )
   );
   return;
@@ -150,11 +157,18 @@ if (url.pathname.endsWith('/news/news.json')) {
     return;
   }
 
-  // Unbekannte Ressourcen direkt vom Netz
-  if (!RESOURCES[key]) {
-    event.respondWith(fetch(event.request));
-    return;
-  }
+// Unbekannte Ressourcen: cache-first, dann Netzwerk-Fallback
+if (!RESOURCES[key]) {
+  event.respondWith(
+    caches.open(CACHE_NAME).then(cache =>
+      cache.match(event.request).then(cachedResp =>
+        cachedResp || fetch(event.request)
+      )
+    )
+  );
+  return;
+}
+
 
   // App-Shell online-first, alle anderen Ressourcen cache-first
   if (key === '/') {
