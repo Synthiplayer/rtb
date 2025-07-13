@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../widgets/hero/hero_header_slide_show.dart';
 import 'band_section.dart';
 import 'media_section.dart';
-import 'spotify_section.dart';
+import 'music_streaming_section.dart';
 import 'tour_section.dart';
 
-/// Startseite-Inhalt: Header, Tourdaten, Bandvorstellung, Media & Spotify.
+/// Startseite-Inhalt: Header, Tourdaten, Bandvorstellung, Media & Streaming-Links.
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
@@ -16,29 +16,26 @@ class HomeBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
+        children: [
           // Oben: Hero-Slideshow mit Bandbildern
-          HeroHeaderSlideshow(),
-          SizedBox(height: 16),
+          const HeroHeaderSlideshow(),
+          const SizedBox(height: 16),
 
           // Tourdaten/Live-Termine direkt unter dem Header
-          TourSection(),
-          SizedBox(height: 32),
+          const TourSection(),
+          const SizedBox(height: 32),
 
           // Band-Mitglieder horizontal scrollbar
-          BandSection(),
-          SizedBox(height: 32),
+          const BandSection(),
+          const SizedBox(height: 32),
 
           // Video-Galerie/Media-Section (YouTube, etc.)
-          MediaSection(),
-          SizedBox(height: 32),
+          const MediaSection(),
+          const SizedBox(height: 32),
 
-          // Spotify-Player zum Reinhören
-          SpotifySection(
-            spotifyUrl:
-                'https://open.spotify.com/intl-de/artist/4PBISxXLfk34sgUpVLQMFl',
-          ),
-          SizedBox(height: 32),
+          // Streaming-Links (als ausgelagertes Widget)
+          const MusicStreamingSection(),
+          const SizedBox(height: 32),
         ],
       ),
     );
