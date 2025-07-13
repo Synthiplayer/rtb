@@ -62,7 +62,7 @@ class MusicStreamingSection extends StatelessWidget {
 
         const SizedBox(height: 28),
 
-        // Featured Song Card: exakt wie die Bildkarte in der MediaSection!
+        // Featured Song Card: Responsive & identisch zu Media-Card
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Card(
@@ -73,128 +73,92 @@ class MusicStreamingSection extends StatelessWidget {
             ),
             margin: EdgeInsets.zero,
             clipBehavior: Clip.antiAlias,
-            child: AspectRatio(
-              aspectRatio: 2 / 1,
-              child: Container(
-                padding: const EdgeInsets.all(0),
-                child: Row(
-                  children: [
-                    // Optional: Coverbild (wenn du willst, sonst weglassen)
-                    /*Expanded(
-                      flex: 1,
-                      child: Image.network(
-                        'https://img.youtube.com/vi/h20b0iBQyuc/hqdefault.jpg',
-                        fit: BoxFit.cover,
-                        height: double.infinity,
-                      ),
-                    ),*/
-                    // Featured Song Info
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 24,
-                          horizontal: 32,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Featured Song',
-                              style: Theme.of(context).textTheme.titleMedium
-                                  ?.copyWith(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface,
-                                  ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Crazy Hairy Daisy',
-                              style: Theme.of(context).textTheme.titleLarge
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface,
-                                  ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 14),
-                            Text(
-                              'Jetzt anhören auf:',
-                              style: Theme.of(context).textTheme.bodyMedium
-                                  ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface
-                                        .withAlpha((0.75 * 255).round()),
-                                  ),
-                            ),
-
-                            const SizedBox(height: 10),
-                            Wrap(
-                              alignment: WrapAlignment.center,
-                              spacing: 10,
-                              children: [
-                                ElevatedButton.icon(
-                                  icon: const Icon(Icons.music_note),
-                                  label: const Text('Spotify'),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF1DB954),
-                                    foregroundColor: Colors.white,
-                                  ),
-                                  onPressed: () => launchUrlString(
-                                    'https://open.spotify.com/intl-de/track/0fncu5k52kM0ptNW20s5ke',
-                                    mode: LaunchMode.externalApplication,
-                                  ),
-                                ),
-                                ElevatedButton.icon(
-                                  icon: const Icon(Icons.music_note),
-                                  label: const Text('Apple Music'),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.black,
-                                    foregroundColor: Colors.white,
-                                  ),
-                                  onPressed: () => launchUrlString(
-                                    'https://music.apple.com/ca/album/crazy-hairy-daisy-single/1676674851',
-                                    mode: LaunchMode.externalApplication,
-                                  ),
-                                ),
-                                ElevatedButton.icon(
-                                  icon: const Icon(Icons.music_note),
-                                  label: const Text('Deezer'),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueGrey,
-                                    foregroundColor: Colors.white,
-                                  ),
-                                  onPressed: () => launchUrlString(
-                                    'https://www.deezer.com/mx/album/416291537',
-                                    mode: LaunchMode.externalApplication,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              'Hinweis: Der Song öffnet sich auf der jeweiligen Streaming-Plattform.',
-                              style: Theme.of(context).textTheme.bodySmall
-                                  ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface
-                                        .withAlpha((0.5 * 255).round()),
-                                  ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Featured Song',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
-                  ],
-                ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Crazy Hairy Daisy',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 14),
+                  Text(
+                    'Jetzt anhören auf:',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withAlpha((0.75 * 255).round()),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: [
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.music_note),
+                        label: const Text('Spotify'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1DB954),
+                          foregroundColor: Colors.white,
+                        ),
+                        onPressed: () => launchUrlString(
+                          'https://open.spotify.com/intl-de/track/0fncu5k52kM0ptNW20s5ke',
+                          mode: LaunchMode.externalApplication,
+                        ),
+                      ),
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.music_note),
+                        label: const Text('Apple Music'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.white,
+                        ),
+                        onPressed: () => launchUrlString(
+                          'https://music.apple.com/ca/album/crazy-hairy-daisy-single/1676674851',
+                          mode: LaunchMode.externalApplication,
+                        ),
+                      ),
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.music_note),
+                        label: const Text('Deezer'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueGrey,
+                          foregroundColor: Colors.white,
+                        ),
+                        onPressed: () => launchUrlString(
+                          'https://www.deezer.com/mx/album/416291537',
+                          mode: LaunchMode.externalApplication,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  Text(
+                    'Hinweis: Der Song öffnet sich auf der jeweiligen Streaming-Plattform.',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withAlpha((0.5 * 255).round()),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
           ),
