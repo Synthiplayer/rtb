@@ -52,6 +52,7 @@ flutter:
     - assets/images/mediabild.png
     - assets/images/sharepic_bg_v3.png
     - assets/images/members/
+    - assets/images/gallery/
 
   fonts:
     - family: Airstream
