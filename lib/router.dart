@@ -10,6 +10,7 @@ import 'package:rtb/pages/detail_page.dart';
 import 'package:rtb/pages/references_page.dart';
 import 'package:rtb/data/band_members.dart';
 import 'package:rtb/pages/media_detail_page.dart';
+import 'package:rtb/pages/shop_detail_page.dart';
 
 final GoRouter appRouter = GoRouter(
   debugLogDiagnostics: true,
@@ -30,6 +31,10 @@ final GoRouter appRouter = GoRouter(
       builder: (ctx, state) => const ReferencesPage(),
     ),
     GoRoute(path: '/media', builder: (ctx, state) => const MediaDetailPage()),
+    GoRoute(
+      path: '/shop',
+      builder: (ctx, state) => const ShopDetailPage(),
+    ), // <--- NEU
     GoRoute(
       path: '/member/:index',
       builder: (ctx, state) {

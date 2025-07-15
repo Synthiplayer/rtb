@@ -1,6 +1,7 @@
 // lib/src/pages/home/home_body.dart
 
 import 'package:flutter/material.dart';
+import 'package:rtb/sections/shop_section.dart';
 import '../widgets/hero/hero_header_slide_show.dart';
 import 'band_section.dart';
 import 'media_section.dart';
@@ -35,6 +36,10 @@ class HomeBody extends StatelessWidget {
 
           // Streaming-Links (als ausgelagertes Widget)
           const MusicStreamingSection(),
+          const SizedBox(height: 32),
+
+          // Shop_shirtee iframe einbindung
+          const ShopSection(),
           const SizedBox(height: 32),
         ],
       ),

@@ -94,5 +94,18 @@
     }
   }
 </script>
+<style>
+  /* Pull-to-refresh / Zurück-Swipe global deaktivieren */
+  html, body {
+    overscroll-behavior: none;
+  }
+
+  /* Scroll-Events im iFrame bleiben dort */
+  iframe#shirtee-iframe {
+    overscroll-behavior: contain;
+    touch-action: pan-x pan-y;
+  }
+</style>
+
 </body>
 </html>

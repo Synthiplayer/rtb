@@ -13,25 +13,35 @@ class HeroTitleOverlay extends StatelessWidget {
       alignment: isDesktop ? Alignment.center : const Alignment(0, 0.55),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 28),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (showNameInHero)
+        child: Container(
+          // leicht abgedunkelter Hintergrund hinter dem Text
+          decoration: BoxDecoration(
+            color: Colors.black.withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (showNameInHero)
+                Text(
+                  'Willkommen',
+                  style: t.displayMedium?.copyWith(
+                    color: Colors.white,
+                  ), // Airstream
+                  textAlign: TextAlign.center,
+                ),
+              if (showNameInHero) const SizedBox(height: 8),
               Text(
-                'Willkommen',
-                style: t.displayMedium, // Airstream
+                'Live · Stories · News · Music · Merch',
+                style: t.titleMedium?.copyWith(
+                  fontSize: isDesktop ? 24 : 16,
+                  color: Colors.white70,
+                ), // Inter
                 textAlign: TextAlign.center,
               ),
-            if (showNameInHero) const SizedBox(height: 8),
-            Text(
-              'Live · Stories · News',
-              style: t.titleMedium?.copyWith(
-                fontSize: isDesktop ? 24 : 16,
-                color: Colors.white70,
-              ), // Inter
-              textAlign: TextAlign.center,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
