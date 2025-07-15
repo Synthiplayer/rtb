@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../ui/app_colors.dart';
+
 class ShopSection extends StatelessWidget {
   const ShopSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     final cardColor = Theme.of(context).cardColor;
-    final onSurface = Theme.of(context).colorScheme.onSurface;
     final t = Theme.of(context).textTheme;
 
     return Column(
@@ -37,7 +38,7 @@ class ShopSection extends StatelessWidget {
         ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             backgroundColor: cardColor,
-            foregroundColor: onSurface,
+            foregroundColor: AppColors.accent,
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
@@ -49,6 +50,7 @@ class ShopSection extends StatelessWidget {
             GoRouter.of(context).push('/shop');
           },
         ),
+
         const SizedBox(height: 16),
       ],
     );
