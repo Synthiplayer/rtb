@@ -6,6 +6,10 @@ class ShopSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+    final t = Theme.of(context).textTheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -17,13 +21,13 @@ class ShopSection extends StatelessWidget {
             children: [
               Text(
                 'Merch-Shop',
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: t.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
               Text(
                 'Hier findest du alle aktuellen Merch-Artikel unserer Band!',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: t.bodyMedium,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -32,13 +36,15 @@ class ShopSection extends StatelessWidget {
         const SizedBox(height: 16),
         ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
+            backgroundColor: cardColor,
+            foregroundColor: onSurface,
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
             ),
           ),
           icon: const Icon(Icons.shopping_bag),
-          label: const Text('Zum Merch-Shop', style: TextStyle(fontSize: 18)),
+          label: Text('Zum Merch-Shop', style: t.titleMedium),
           onPressed: () {
             GoRouter.of(context).push('/shop');
           },
