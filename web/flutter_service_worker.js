@@ -143,6 +143,11 @@ self.addEventListener('fetch', event => {
 
   const url = new URL(event.request.url);
 
+  // Anfragen von Chrome-Erweiterungen und andere nicht-http-Anfragen ignorieren
+  if (!url.protocol.startsWith('http')) {
+    return;
+  }
+
   // 1) Tour-JSON: network-first, dann Cache
   if (url.pathname.endsWith('/tour/tour.json')) {
     event.respondWith(networkFirst(event.request));
@@ -155,8 +160,7 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // 3) SPA-Navigation (index.html): cache-first
-// 3) SPA-Navigation (index.html): nur für „echte“ Seiten ohne Dateiendung
+  // 3) SPA-Navigation (index.html): nur für „echte“ Seiten ohne Dateiendung
 if (event.request.mode === 'navigate') {
   const path = url.pathname;
 
