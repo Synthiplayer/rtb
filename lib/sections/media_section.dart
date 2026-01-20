@@ -53,16 +53,15 @@ class MediaSection extends StatelessWidget {
             },
             child: Card(
               elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: AspectRatio(
-                aspectRatio: 2 / 1,
-                child: Image.asset(
-                  'assets/images/mediabild.png',
-                  fit: BoxFit.cover,
-                ),
+              // Weder Ecken noch Clipping, um den Bild-Rahmen nicht zu stören
+              shape: const RoundedRectangleBorder(),
+              clipBehavior: Clip.none,
+              // Kein AspectRatio mehr nötig. Das Bild passt sich von selbst an.
+              child: Image.asset(
+                'assets/images/mediabild_retro_v2.webp',
+                // BoxFit.contain skaliert das Bild passend herunter, ohne es zu beschneiden.
+                // Das ist die korrekte Lösung für das Problem.
+                fit: BoxFit.contain,
               ),
             ),
           ),

@@ -11,7 +11,7 @@ Jeder Eintrag ist ein Objekt mit folgenden Feldern:
 | `venue`            | String   | ❌        | Veranstaltungsort                                                 |
 | `advance`          | String   | ❌        | Vorverkaufspreis, z. B. `"13,00 €"`                               |
 | `before`           | String   | ❌        | Abendkassenpreis, z. B. `"15,00 €"`                               |
-| `url`              | String   | ❌        | **Ticket-Link** (wenn leer → kein Ticket)                        |
+| `tickets`          | String   | ❌        | **Ticket-Link** (wenn leer → kein Ticket)                        |
 | `eventlink`        | String   | ❌        | **Event-Info** (z. B. Presse- oder Detailseite)                  |
 | `subtitle`         | String   | ❌        | Kurzer Zusatztext unter dem Event-Titel                          |
 | `organizer`        | String   | ❌        | Veranstalter-Name                                                |
@@ -34,7 +34,7 @@ Alle anderen Felder sind optional und können weggelassen werden.
     "venue":            "Osterbrucher Mühle",
     "advance":          "13,00 €",
     "before":           "15,00 €",
-    "url":              "https://tickets.example.com/ragtag-birds",
+    "tickets":          "https://tickets.example.com/ragtag-birds",
     "eventlink":        "https://www.kultur-pur-osterbruch.de/jahres-übersicht-2025/",
     "organizer":        "KulturPur Osterbruch e. V.",
     "organizer_street": "Dorfstraße 13",
@@ -45,6 +45,6 @@ Alle anderen Felder sind optional und können weggelassen werden.
     "date":  "2025-08-02",
     "city":  "München",
     "venue": "Rockhalle"
-    // kein advance, before, url, eventlink → Eintritt frei
+    // kein advance, before, tickets, eventlink → Eintritt frei
   }
 ]

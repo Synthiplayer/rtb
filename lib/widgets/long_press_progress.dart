@@ -68,20 +68,26 @@ class _LongPressProgressState extends State<LongPressProgress>
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
       onTapCancel: _onTapCancel,
+      // Der Stack wird jetzt so aufgebaut, dass das Kind-Widget (das Bild)
+      // die Größe bestimmt und die Fortschrittsanzeige darüber gelegt wird,
+      // ohne das Layout zu beeinflussen. Das löst das Clipping-Problem.
       child: Stack(
-        alignment: Alignment.center,
         children: [
           widget.child,
-          // Fortschrittsanzeige (sichtbar während des langen Drückens)
-          SizedBox(
-            width: widget.size,
-            height: widget.size,
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (context, _) => CircularProgressIndicator(
-                value: _controller.value,
-                strokeWidth: 2,
-                backgroundColor: Colors.transparent,
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: widget.size,
+                height: widget.size,
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, _) => CircularProgressIndicator(
+                    value: _controller.value,
+                    strokeWidth: 2,
+                    backgroundColor: Colors.transparent,
+                  ),
+                ),
               ),
             ),
           ),

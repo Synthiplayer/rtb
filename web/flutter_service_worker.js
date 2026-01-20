@@ -156,10 +156,25 @@ self.addEventListener('fetch', event => {
   }
 
   // 3) SPA-Navigation (index.html): cache-first
-  if (event.request.mode === 'navigate') {
-    event.respondWith(cacheFirst('/index.html'));
-    return;
+// 3) SPA-Navigation (index.html): nur für „echte“ Seiten ohne Dateiendung
+if (event.request.mode === 'navigate') {
+  const path = url.pathname;
+
+  // a) Lass ALLES unter /epk/ ungefiltert zum Netzwerk durch (damit Downloads funktionieren)
+  if (path.startsWith('/epk/')) {
+    return; // Browser lädt normal vom Server
   }
+
+  // b) Wenn die URL wie eine Datei aussieht (z. B. .zip, .txt, .pdf), KEIN SPA-Fallback
+  if (/\.[^/]+$/.test(path)) {
+    return; // normale Netz-Anfrage
+  }
+
+  // c) „Normale“ App-Routen -> SPA-Shell
+  event.respondWith(cacheFirst('/index.html'));
+  return;
+}
+
 
   // 4) Statische RESOURCES: cache-first
   const key = url.pathname.substring(1);

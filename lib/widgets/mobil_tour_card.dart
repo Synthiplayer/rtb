@@ -43,7 +43,7 @@ class _MobilTourCardState extends State<MobilTourCard> {
     final venue = safeString(show['venue']);
     final advance = safeString(show['advance']);
     final before = safeString(show['before']);
-    final ticketUrl = safeString(show['url']);
+    final ticketUrl = safeString(show['tickets']);
     final eventLink = safeString(show['eventlink']);
     final organizer = safeString(show['organizer']);
     final organizerStreet = safeString(show['organizer_street']);

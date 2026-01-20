@@ -16,8 +16,10 @@ class BookingPage extends StatelessWidget {
     Uri.parse('mailto:booking@ragtagbirds.de?subject=Buchungsanfrage'),
   );
 
-  Future<void> _downloadEpk() =>
-      launchUrl(Uri.parse('https://ragtagbirds.de/epk/epk.zip'));
+  Future<void> _downloadEpk() => launchUrl(
+    Uri.parse('https://ragtagbirds.de/epk/epk.zip'),
+    webOnlyWindowName: '_blank',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,7 @@ class BookingPage extends StatelessWidget {
               icon: const Icon(Icons.mail_outline),
               label: const Text('Per E-Mail anfragen'),
             ),
-
             const SizedBox(height: 40),
-
             Text(
               'Download Electronic Press Kit',
               style: Theme.of(context).textTheme.titleLarge,
