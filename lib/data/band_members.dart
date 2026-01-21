@@ -9,7 +9,7 @@ final List<BandMember> bandMembers = [
   BandMember(
     name: 'Ragtag Birds',
     role: '50s & 60s Rock’n’Roll',
-    imageAsset: 'assets/images/members/ragtag_birds.jpg',
+    imageAsset: 'assets/images/members/ragtag_birds.webp',
     instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
     facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'info@ragtagbirds.de'),
@@ -18,7 +18,7 @@ final List<BandMember> bandMembers = [
   BandMember(
     name: 'Danny',
     role: 'Vocals',
-    imageAsset: 'assets/images/members/danny.jpg',
+    imageAsset: 'assets/images/members/danny.webp',
     instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
     facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'danny@ragtagbirds.de'),
@@ -27,7 +27,7 @@ final List<BandMember> bandMembers = [
   BandMember(
     name: 'Sebastian',
     role: 'Lead Guitar',
-    imageAsset: 'assets/images/members/sebastian.jpg',
+    imageAsset: 'assets/images/members/sebastian.webp',
     instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
     facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'sebastian@ragtagbirds.de'),
@@ -36,7 +36,7 @@ final List<BandMember> bandMembers = [
   BandMember(
     name: 'Jörn',
     role: 'Double Bass',
-    imageAsset: 'assets/images/members/joern.jpg',
+    imageAsset: 'assets/images/members/joern.webp',
     instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
     facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'joern@ragtagbirds.de'),
@@ -45,7 +45,7 @@ final List<BandMember> bandMembers = [
   BandMember(
     name: 'Björn',
     role: 'Drums',
-    imageAsset: 'assets/images/members/bjoern.jpg',
+    imageAsset: 'assets/images/members/bjoern.webp',
     instagramUrl: Uri.https('www.instagram.com', 'ragtagbirds/'),
     facebookUrl: Uri.https('www.facebook.com', 'ragtagbirds/'),
     emailUrl: Uri(scheme: 'mailto', path: 'bjoern@ragtagbirds.de'),
@@ -54,7 +54,7 @@ final List<BandMember> bandMembers = [
   BandMember(
     name: 'Stefan',
     role: 'Stage Piano',
-    imageAsset: 'assets/images/members/stefan.jpg',
+    imageAsset: 'assets/images/members/stefan.webp',
     instagramUrl: Uri.https('www.instagram.com', 'synthiplayer/'),
     facebookUrl: Uri.https('www.facebook.com', 'stefan.rose.77/'),
     emailUrl: Uri(scheme: 'mailto', path: 'stefan@ragtagbirds.de'),

@@ -28,9 +28,9 @@ class HeroHeaderSlideshow extends ConsumerStatefulWidget {
 class _HeroHeaderSlideshowState extends ConsumerState<HeroHeaderSlideshow>
     with SingleTickerProviderStateMixin {
   final List<String> _images = [
-    'assets/images/hero.jpeg',
-    'assets/images/hero2.jpeg',
-    'assets/images/hero3.jpeg',
+    'assets/images/hero.webp',
+    'assets/images/hero2.webp',
+    'assets/images/hero3.webp',
   ];
 
   int _currentIndex = 0;

@@ -45,10 +45,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/logo.png
-    - assets/images/hero.jpeg
-    - assets/images/hero2.jpeg
-    - assets/images/hero3.jpeg
+    - assets/images/hero.webp
+    - assets/images/hero2.webp
+    - assets/images/hero3.webp
     - assets/images/mediabild_retro_v2.webp
     - assets/images/sharepic_bg_v3.png
     - assets/images/members/
