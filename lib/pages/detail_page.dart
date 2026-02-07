@@ -16,8 +16,11 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(member.name)),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      // Die Column wurde durch eine ListView ersetzt, um die Seite scrollbar zu machen.
+      body: ListView(
+        padding: const EdgeInsets.only(
+          bottom: 40,
+        ), // Platz am Ende für schöneres Scrollen
         children: [
           // Großes Bild oben (volle Breite, ursprüngliche Größe)
           Padding(
@@ -79,13 +82,11 @@ class DetailPage extends StatelessWidget {
 
           // Scrollbarer Beschreibungstext
           if (member.description != null)
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                physics: const AlwaysScrollableScrollPhysics(),
-                children: [
-                  Text(member.description!, style: theme.textTheme.bodyMedium),
-                ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                member.description!,
+                style: theme.textTheme.bodyMedium,
               ),
             ),
         ],
